@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+        --shadow-:[0_16px_16px_-8px_#191a1a05,0_8px_8px_-4px_#191a1a05,0_4px_4px_-2px_#191a1a05,0_2px_2px_-1px_#191a1a08,0_1px_1px_-.5px_#191a1a08,0_0_0_1px_#191a1a08];
+
+        --breakpoint-*:initial;
+        --breakpoint-sm:480px;
+        --breakpoint-sm:768px;
+        --breakpoint-sm:976px;
+
+      }
+
+/* in global css or tailwind base layer */
+/* html, body {
+  overflow-x: hidden;
+} */
+
