@@ -1,19 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
     return (
         <div className="bg-[#f5f3ea] w-full min-h-screen flex items-center justify-center px-4">
             <div className="bg-[#fdfdfa] w-full max-w-md p-8 rounded-2xl shadow-xl">
                 <div className="mb-10 mt-10 text-center">
                     <h1 className="text-3xl font-semibold mb-2">
-                        Welcome Back
+                        Get Started Now
                     </h1>
                     <h2 className="text-xl font-medium text-zinc-600">
-                        Login your account
+                        Please create your account
                     </h2>
                 </div>
                 <div className="flex flex-col gap-4">
+                    <input
+                        type="text"
+                        placeholder="Full name"
+                        className="border border-zinc-200 px-4 py-3 outline-none rounded-lg w-full"
+                    />
                     <input
                         type="text"
                         placeholder="Email address"
@@ -25,18 +30,18 @@ const Login = () => {
                         className="border border-zinc-200 px-4 py-3 outline-none rounded-lg w-full"
                     />
                     <button className="px-4 py-3 bg-[#191A1A] text-white rounded-md font-semibold mt-4 w-full cursor-pointer hover:bg-[#303232]">
-                        Login
+                        Create account
                     </button>
                 </div>
 
-                {/* Signup Link */}
+                {/* Login Link */}
                 <div className="mt-6 text-center text-sm text-zinc-600">
-                    Don't have an account?{" "}
+                     Have an account?{" "}
                     <Link
-                        to="/signup"
+                        to="/login"
                         className="text-[#191A1A] font-semibold hover:underline"
                     >
-                        Sign up
+                        login
                     </Link>
                 </div>
             </div>
@@ -44,4 +49,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;
