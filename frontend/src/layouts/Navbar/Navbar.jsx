@@ -95,7 +95,7 @@ const Navbar = () => {
                             )}
                         </li>
                         <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
-                            <Link to="/">Cart</Link>
+                            <Link to="/">Bag</Link>
                         </li>
                         <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
                             <Link to="/">Wishlist</Link>
