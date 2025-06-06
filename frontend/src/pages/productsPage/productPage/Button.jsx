@@ -1,0 +1,23 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Button = () => {
+    return (
+        <>
+            <Link
+                to="/wishlist"
+                className="flex-1 bg-[#ff406c] text-white text-sm font-semibold px-4 py-3 rounded-md transition duration-200 shadow"
+            >
+                Add to Wishlist
+            </Link>
+            <Link
+                to="/checkout/cart"
+                className="flex-1 bg-black hover:bg-zinc-800 text-white text-sm font-semibold px-4 py-3 rounded-md transition duration-200 shadow"
+            >
+                Buy Now
+            </Link>
+        </>
+    );
+};
+
+export default Button;

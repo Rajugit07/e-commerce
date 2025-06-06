@@ -7,20 +7,15 @@ const ProductComponent = () => {
     return (
         <div className="w-full min-h-screen bg-gray-50">
             {/* Navbar */}
-            <nav className="shadow-sm bg-white">
+            <div className=" bg-white">
                 <Navbar />
-            </nav>
 
-            {/* Main Section */}
-            <div className="flex items-center justify-between py-12 px-4">
-                <div className="flex gap-10 w-full max-w-6xl">
-                    {/* Left: Image */}
-                    <section className="flex-1 bg-white">
+                {/* Main Section */}
+                <div className="flex flex-row md:flex-col items-start justify-between py-8 px-6 md:py-12 md:px-4 w-full gap-10 max-sm:flex-col ">
+                    <section className="w-5/12 md:w-1/2 max-sm:w-full flex-shrink-0 flex justify-center bg-white mb-8 md:mb-0">
                         <ProductImage />
                     </section>
-
-                    {/* Right: Description */}
-                    <section className="flex-1">
+                    <section className="w-7/12 md:w-1/2 max-sm:w-full flex flex-col justify-center">
                         <ProductDescription />
                     </section>
                 </div>
@@ -30,6 +25,3 @@ const ProductComponent = () => {
 };
 
 export default ProductComponent;
-
-
-// border-zinc-200 p-4 rounded-xl shadow
