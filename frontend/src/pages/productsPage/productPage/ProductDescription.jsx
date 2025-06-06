@@ -1,6 +1,7 @@
 import React from "react";
 import SizeSelector from "../../../components/SizeSelector";
 import QtySelector from "../../../components/QtySelector";
+import { Link } from "react-router-dom";
 
 const ProductDescription = () => {
     return (
@@ -37,10 +38,10 @@ const ProductDescription = () => {
                 {/* Buttons */}
                 <div className="flex gap-4 mt-6">
                     <button className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-semibold px-4 py-3 rounded-lg transition duration-200 shadow">
-                        Add to Cart
+                       <Link to="/wishlist"> Add to Wishlist</Link>
                     </button>
                     <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-3 rounded-lg transition duration-200 shadow">
-                        Buy Now
+                       <Link to="/checkout/cart"> Buy Now</Link>
                     </button>
                 </div>
             </div>
