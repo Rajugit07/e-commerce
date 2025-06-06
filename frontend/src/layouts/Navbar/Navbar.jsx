@@ -95,10 +95,10 @@ const Navbar = () => {
                             )}
                         </li>
                         <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
-                            <Link to="/">Bag</Link>
+                            <Link to="/checkout/cart">Bag</Link>
                         </li>
                         <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
-                            <Link to="/">Wishlist</Link>
+                            <Link to="/wishlist">Wishlist</Link>
                         </li>
                     </ul>
                 </div>
