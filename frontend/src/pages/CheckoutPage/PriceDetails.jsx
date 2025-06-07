@@ -6,7 +6,9 @@ import BuyButton from "./BuyButton";
 const PriceDetails = () => {
     return (
         <div className="w-full h-auto">
-            <AddressComp />
+            <div className="max-sm:hidden">
+                <AddressComp />
+            </div>
             <TotalPrice />
             <BuyButton />
         </div>
