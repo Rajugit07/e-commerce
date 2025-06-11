@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../../layouts/Navbar/Navbar";
 import FilterComponent from "./FilterComponent";
 import Products from "./Products";
+import BottomFilterMobile from "./MobileViewProducts/BottomFilterMobile";
 
 const ProductsPage = () => {
     return (
@@ -14,8 +15,11 @@ const ProductsPage = () => {
                 </section>
 
                 {/* Main content - Products */}
-                <section className="w-[80%]">
+                <section className="w-[80%] max-sm:w-full">
                     <Products />
+                    <section  className="">
+                        <BottomFilterMobile />
+                    </section>
                 </section>
             </div>
         </div>
