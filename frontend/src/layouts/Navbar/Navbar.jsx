@@ -17,6 +17,9 @@ import {
 } from "./navData";
 import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
+import { toast, Toaster, ToastBar } from "react-hot-toast";
+
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +34,8 @@ const Navbar = () => {
 
     return (
         <div className="w-full h-auto sticky top-0 z-[9999] bg-white ">
+
+
             <nav className="flex items-center justify-between sm:p-6 ">
                 {/* Full Menu (Desktop) */}
                 <div>
@@ -86,7 +91,11 @@ const Navbar = () => {
                         >
                             <Link to="/">Profile</Link>
                             <span>
-                                <FaAngleDown className={`transition-transform duration-300 ${isOpen2 ? "rotate-180" : ""}`}/>
+                                <FaAngleDown
+                                    className={`transition-transform duration-300 ${
+                                        isOpen2 ? "rotate-180" : ""
+                                    }`}
+                                />
                             </span>
                             {isOpen2 && (
                                 <div className="absolute top-20 mt-2 right-19">
@@ -102,7 +111,10 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
+
             </nav>
+
+
 
             {/* Hamburger Button */}
             <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 flex items-center justify-between text-2xl sm:hidden sticky top-0 z-50">
@@ -126,22 +138,25 @@ const Navbar = () => {
                         <FaShoppingBag className="text-zinc-800 cursor-pointer" />
                     </div>
                     <div>
-                        <VscAccount className="text-zinc-800 cursor-pointer" onClick={toggleDropdownMobile}/>
-                        {
-                            isOpen3 && (
-                                <div className="absolute top-15 mt-2 right-1">
-                                     <ProfileDropDown />
-                                </div>
-                            )
-                        }
+                        <VscAccount
+                            className="text-zinc-800 cursor-pointer"
+                            onClick={toggleDropdownMobile}
+                        />
+                        {isOpen3 && (
+                            <div className="absolute top-15 mt-2 right-1">
+                                <ProfileDropDown />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
+
 
             {/* Dropdown menu for mobile */}
             <div className="px-6 mt-2 relative">
                 {isOpen && <MobileNavbar />}
             </div>
+
 
             {/* Search */}
             <div className="w-full px-1 sm:hidden relative">
@@ -152,6 +167,26 @@ const Navbar = () => {
                     className="w-full border border-zinc-300 pl-10 px-3 py-2 rounded-full outline-none"
                 />
             </div>
+
+            {/* Toaster */}
+            <Toaster>
+                {(t) => (
+                    <ToastBar toast={t}>
+                        {({ icon, message }) => (
+                            <>
+                                {icon}
+                                {message}
+                                {t.type !== "loading" && (
+                                    <button onClick={() => toast.dismiss(t.id)}>
+                                        X
+                                    </button>
+                                )}
+                            </>
+                        )}
+                    </ToastBar>
+                )}
+            </Toaster>
+            ;
         </div>
     );
 };
