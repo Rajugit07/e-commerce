@@ -17,7 +17,7 @@ import {
 } from "./navData";
 import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
-import { toast, Toaster, ToastBar } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -34,7 +34,6 @@ const Navbar = () => {
 
     return (
         <div className="w-full h-auto sticky top-0 z-[9999] bg-white ">
-
 
             <nav className="flex items-center justify-between sm:p-6 ">
                 {/* Full Menu (Desktop) */}
@@ -114,8 +113,6 @@ const Navbar = () => {
 
             </nav>
 
-
-
             {/* Hamburger Button */}
             <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 flex items-center justify-between text-2xl sm:hidden sticky top-0 z-50">
                 <div className="flex items-center gap-3 ">
@@ -169,24 +166,8 @@ const Navbar = () => {
             </div>
 
             {/* Toaster */}
-            <Toaster>
-                {(t) => (
-                    <ToastBar toast={t}>
-                        {({ icon, message }) => (
-                            <>
-                                {icon}
-                                {message}
-                                {t.type !== "loading" && (
-                                    <button onClick={() => toast.dismiss(t.id)}>
-                                        X
-                                    </button>
-                                )}
-                            </>
-                        )}
-                    </ToastBar>
-                )}
-            </Toaster>
-            ;
+            <Toaster/>
+
         </div>
     );
 };

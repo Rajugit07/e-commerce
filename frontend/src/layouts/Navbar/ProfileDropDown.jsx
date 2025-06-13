@@ -1,9 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { asyncLogoutUser } from "../../store/Actions/LogoutAction";
 
 const ProfileDropDown = () => {
     const { user } = useSelector((state) => state.authReducer);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handelLogout = () => {
+        dispatch(asyncLogoutUser());
+        navigate("/login")
+    };
 
     return (
         <>
@@ -38,7 +47,10 @@ const ProfileDropDown = () => {
                                 </>
                             )}
 
-                            <button className="bg-black text-white p-2 text-sm sm:text-base rounded-md mb-4 uppercase">
+                            <button
+                                onClick={handelLogout}
+                                className="bg-black text-white p-2 text-sm sm:text-base rounded-md mb-4 uppercase cursor-pointer"
+                            >
                                 Logout
                             </button>
                         </>
