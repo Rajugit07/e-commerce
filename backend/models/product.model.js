@@ -1,56 +1,60 @@
 import mongoose, { Schema } from "mongoose";
 
-const productSchema = new Schema({
-    productId:{
-        type:String,
-        unique:true,
-        trim:true,
-        require:true
-    },
-    title:{
-        type:String,
-        trim:true,
-        require:true
-    },
-    price:{
-        type:Number,
-        trim:true,
-        require:true,
-    },
-    description:{
-        type:String,
-        trim:true,
-        require:true
-    },
-    image:[
-        {
-            public_id:{
-                type:String,
-                require:true
+const productSchema = new Schema(
+    {
+        productId: {
+            type: String,
+            unique: true,
+            trim: true,
+            required: true,
+        },
+        title: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        price: {
+            type: Number,
+            required: true,
+        },
+        description: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        image: [
+            {
+                url: {
+                    type: String,
+                    required: true,
+                },
             },
-            url:{
-                type:String,
-                require:true
-            }
-        }
-    ],
-    category:{
-        type:String,
-        require:true
+        ],
+        category: {
+            type: String, // e.g. "man", "woman", "kids", "beauty"
+            required: true,
+            lowercase: true,
+        },
+        subCategory: {
+            type: String, // e.g. "Topwear", "Indian Wear", "Footwear"
+            required: true,
+        },
+        productType: {
+            type: String, // e.g. "T-Shirt", "Saree", "Shoes"
+            required: true,
+        },
+        checked: {
+            type: Boolean,
+            required: false,
+        },
+        stock: {
+            type: Number,
+            required: true,
+            default: 1,
+        },
     },
-    checked:{
-        type:Boolean,
-        require:false
-    },
-    stock:{
-        type:Number,
-        require:true,
-        require:true,
-        default:1,
+    {
+        timestamps: true,
     }
-},
-{
-    timestamps:true
-});
-
-module.exports = mongoose.model("Products",productSchema);
+);
+export default mongoose.model("Products", productSchema);

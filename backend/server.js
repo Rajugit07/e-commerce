@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./database/db.js";
 import userRoute from "./routes/user.route.js";
+import productRoute from "./routes/product.route.js";
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,9 @@ app.use(cors(corsOptions));
 
 // api
 app.use("/api/v1/user", userRoute);
+
+//Product api
+app.use("/api/v1",productRoute)
 
 app.listen(PORT, () => {
     connectDB();
