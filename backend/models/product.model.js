@@ -43,6 +43,14 @@ const productSchema = new Schema(
             type: String, // e.g. "T-Shirt", "Saree", "Shoes"
             required: true,
         },
+        size: {
+            type: String,
+            required: true,
+        },
+        color: {
+            type:[String],
+            required:true
+        },
         checked: {
             type: Boolean,
             required: false,

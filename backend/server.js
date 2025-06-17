@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", userRoute);
 
 //Product api
-app.use("/api/v1",productRoute)
+app.use("/api/v1",productRoute);
 
 app.listen(PORT, () => {
     connectDB();
