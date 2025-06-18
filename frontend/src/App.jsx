@@ -9,12 +9,12 @@ import WishlistPage from "./pages/WishlistPage/WishlistPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 function App() {
     return (
-        <div className="bg-[#f4f4f4] ">
+        <div className="bg-white">
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/man/topwear/t-shirt" element={<ProductsPage />} />
+                <Route path="/:category/:subCategory/:productType" element={<ProductsPage />} />
                 <Route path="/products/mens-sneakers" element={<ProductComponent />} />
                 <Route path="/wishlist" element={<WishlistPage/>}/>
                 <Route path="/checkout/cart" element={<CheckoutPage/>}/>

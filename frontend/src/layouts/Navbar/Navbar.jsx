@@ -19,7 +19,9 @@ import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
 import { Toaster } from "react-hot-toast";
 
-
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import {  asyncGetFilteredProducts } from "../../store/Actions/ProductAction/productAction";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -32,10 +34,21 @@ const Navbar = () => {
         setIsOpen3(!isOpen3);
     };
 
-    return (
-        <div className="w-full h-auto sticky top-0 z-[9999] bg-white ">
 
-            <nav className="flex items-center justify-between sm:p-6 ">
+//    const dispatch = useDispatch();
+//     useEffect(() => {
+//         dispatch(asyncGetFilteredProducts());
+//     }, [dispatch]);
+
+    // const { product } = useSelector((state) => state.productReducer);
+    // useEffect(() => {
+    //     console.log("Product from Redux:", product);
+    // }, [product]);
+
+
+    return (
+        <div className="w-full h-auto sticky top-0 z-[9999] bg-white">
+            <nav className="flex items-center justify-between sm:p-4.5  border-b border-zinc-200">
                 {/* Full Menu (Desktop) */}
                 <div>
                     <div className=" bg-white p-2 rounded-md shadow max-sm:hidden ">
@@ -110,7 +123,6 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-
             </nav>
 
             {/* Hamburger Button */}
@@ -148,12 +160,10 @@ const Navbar = () => {
                 </div>
             </div>
 
-
             {/* Dropdown menu for mobile */}
             <div className="px-6 mt-2 relative">
                 {isOpen && <MobileNavbar />}
             </div>
-
 
             {/* Search */}
             <div className="w-full px-1 sm:hidden relative">
@@ -166,10 +176,24 @@ const Navbar = () => {
             </div>
 
             {/* Toaster */}
-            <Toaster/>
-
+            <Toaster />
         </div>
     );
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

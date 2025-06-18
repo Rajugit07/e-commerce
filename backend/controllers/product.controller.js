@@ -20,40 +20,31 @@ export const createProduct = async (req, res) => {
 
         // Basic validation
         if (!title || typeof title !== "string") {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: "Title is required and must be a string",
-                });
+            return res.status(400).json({
+                success: false,
+                message: "Title is required and must be a string",
+            });
         }
 
         if (price == null || typeof price !== "number" || price < 0) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: "Price is required and must be a positive number",
-                });
+            return res.status(400).json({
+                success: false,
+                message: "Price is required and must be a positive number",
+            });
         }
 
         if (!category || typeof category !== "string") {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: "Category is required and must be a string",
-                });
+            return res.status(400).json({
+                success: false,
+                message: "Category is required and must be a string",
+            });
         }
 
         if (stock == null || typeof stock !== "number" || stock < 0) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message:
-                        "Stock is required and must be a non-negative number",
-                });
+            return res.status(400).json({
+                success: false,
+                message: "Stock is required and must be a non-negative number",
+            });
         }
 
         // Optionally check if productId is unique
@@ -90,6 +81,24 @@ export const createProduct = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Error uploading product",
+            error: error.message,
+        });
+    }
+};
+
+// show All product
+export const getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find().lean();
+        res.status(200).json({
+            success: true,
+            count: products.length,
+            products,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error fetching products",
             error: error.message,
         });
     }
@@ -162,5 +171,31 @@ export const filterProductByColor = async (req, res) => {
     } catch (error) {
         console.error("Error filtering products:", error);
         res.status(500).json({ message: "Server error." });
+    }
+};
+
+//product filter by category
+
+export const productFilterByCategory = async (req, res) => {
+    try {
+        const { category, subCategory, productType } = req.query;
+
+        const filter = {};
+        if (category) filter.category = new RegExp(`^${category}$`, 'i');
+        if (subCategory) filter.subCategory = new RegExp(`^${subCategory}$`, 'i');
+        if (productType) filter.productType = new RegExp(`^${productType}$`, 'i');
+
+        const products = await Product.find(filter);
+        res.status(200).json({
+            success: true,
+            count: products.length,
+            products,
+        });
+    } catch (error) {
+        console.error("Error fetching products:", error.message);
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+        });
     }
 };
