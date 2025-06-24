@@ -1,5 +1,5 @@
 export const dropDownData = {
-    man: ["Topwear", "Bottomwear", "Footwear", "Sport"],
+    men: ["Topwear", "Bottomwear", "Footwear", "Sport"],
     woman: ["Indian Wear", "Western Wear", "Footwear", "Sport"],
     kids: ["Boy", "Girl", "Footwear", "Toys"],
     beauty: ["Makeup", "Skincare", "Haircare", "Fragrance"],

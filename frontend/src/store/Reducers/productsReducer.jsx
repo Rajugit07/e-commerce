@@ -15,9 +15,15 @@ const productSlice = createSlice({
         },
         getProductByCategory: (state, action) => {
             state.filteredProduct = action.payload;
+            state.loading = false;
+        },
+        clearFilteredProduct: (state) => {
+            state.filteredProduct = [];
+            state.loading = true; // Set loading true until new data comes
         },
     },
 });
 
 export default productSlice.reducer;
-export const { getProduct, getProductByCategory } = productSlice.actions;
+export const { getProduct, getProductByCategory, clearFilteredProduct } =
+    productSlice.actions;

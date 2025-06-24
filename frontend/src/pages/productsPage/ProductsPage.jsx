@@ -6,11 +6,11 @@ import BottomFilterMobile from "./MobileViewProducts/BottomFilterMobile";
 
 const ProductsPage = () => {
     return (
-        <div className="w-full h-screen ">
+        <div className="w-full h-screen">
             <Navbar />
             <div className="flex h-screen px-6">
                 {/* Sidebar - FilterComponent */}
-                <section className="w-[20%] max-sm:hidden">
+                <section className="w-[20%] max-sm:hidden ">
                     <FilterComponent />
                 </section>
 

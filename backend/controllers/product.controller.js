@@ -178,14 +178,28 @@ export const filterProductByColor = async (req, res) => {
 
 export const productFilterByCategory = async (req, res) => {
     try {
-        const { category, subCategory, productType } = req.query;
+        const normalize = (str) => str?.toLowerCase().trim();
 
-        const filter = {};
-        if (category) filter.category = new RegExp(`^${category}$`, 'i');
-        if (subCategory) filter.subCategory = new RegExp(`^${subCategory}$`, 'i');
-        if (productType) filter.productType = new RegExp(`^${productType}$`, 'i');
+        const category = normalize(req.query.category);
+        const subCategory = normalize(req.query.subCategory);
+        const productType = normalize(req.query.productType);
+
+        // Ensure all three values are provided
+        if (!category || !subCategory || !productType) {
+            return res.status(400).json({
+                success: false,
+                message: "All three filters (category, subCategory, productType) are required",
+            });
+        }
+
+        const filter = {
+            category: new RegExp(`^${category}$`, "i"),
+            subCategory: new RegExp(`^${subCategory}$`, "i"),
+            productType: new RegExp(`^${productType}$`, "i"),
+        };
 
         const products = await Product.find(filter);
+
         res.status(200).json({
             success: true,
             count: products.length,
@@ -199,3 +213,5 @@ export const productFilterByCategory = async (req, res) => {
         });
     }
 };
+
+

@@ -6,7 +6,7 @@ import ColorDropDown from "./FilterDropDown/ColorDropDown ";
 
 const FilterComponent = () => {
     return (
-        <div className="h-full max-sm:hidden">
+        <div className="h-full max-sm:hidden ">
             {/* navigation stage */}
             <section className="">
                 <Link>home/man/t-shirt</Link>

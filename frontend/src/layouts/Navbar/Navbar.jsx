@@ -19,9 +19,6 @@ import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
 import { Toaster } from "react-hot-toast";
 
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import {  asyncGetFilteredProducts } from "../../store/Actions/ProductAction/productAction";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,19 +30,6 @@ const Navbar = () => {
     const toggleDropdownMobile = () => {
         setIsOpen3(!isOpen3);
     };
-
-
-//    const dispatch = useDispatch();
-//     useEffect(() => {
-//         dispatch(asyncGetFilteredProducts());
-//     }, [dispatch]);
-
-    // const { product } = useSelector((state) => state.productReducer);
-    // useEffect(() => {
-    //     console.log("Product from Redux:", product);
-    // }, [product]);
-
-
     return (
         <div className="w-full h-auto sticky top-0 z-[9999] bg-white">
             <nav className="flex items-center justify-between sm:p-4.5  border-b border-zinc-200">
@@ -58,13 +42,13 @@ const Navbar = () => {
                 <div className="bg-white border border-zinc-100 px-6 py-1 rounded-md md:flex shadow max-sm:hidden ">
                     <ul className="flex gap-6 text-sm font-normal text-zinc-800">
                         <NavItem
-                            label="Man"
-                            path="/man"
-                            subItems={dropDownData.man}
+                            label="Men"
+                            path="/men"
+                            subItems={dropDownData.men}
                             itm={dropDownSubDataMan}
                         />
                         <NavItem
-                            label="Woman"
+                            label="Women"
                             path="/women"
                             subItems={dropDownData.woman}
                             itm={dropDownSubDataWomen}

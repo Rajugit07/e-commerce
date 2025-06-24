@@ -1,6 +1,7 @@
 import { productsApi } from "../../../api/productApi/Product";
 import { productFilterByCategoryApi } from "../../../api/productApi/productFilterByCategoryApi";
 import {
+    clearFilteredProduct,
     getProduct,
     getProductByCategory,
 } from "../../Reducers/productsReducer";
@@ -18,6 +19,7 @@ export const asyncGetAllProducts = (Credential) => async (dispatch) => {
 
 export const asyncGetFilteredProducts = (queryParams) => async (dispatch) => {
     try {
+        dispatch(clearFilteredProduct());
         const data = await productFilterByCategoryApi(queryParams);
         if (data.success) {
             dispatch(getProductByCategory(data.products));

@@ -9,7 +9,7 @@ export const productFilterByCategoryApi = async ({
 }) => {
     try {
         const response = await axios.get(
-            `${API_BASE_URL}?category=${category}&subCategory=${subCategory}&type=${productType}`,
+            `${API_BASE_URL}?category=${category}&subCategory=${subCategory}&productType=${productType}`,
             {
                 headers: {
                     "Content-Type": "Application/json",
