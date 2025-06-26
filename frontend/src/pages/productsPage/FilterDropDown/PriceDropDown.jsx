@@ -1,75 +1,29 @@
-// import React, { useState } from "react";
-
-// // const products = [
-// //     { name: "Laptop", price: 1200 },
-// //     { name: "Phone", price: 800 },
-// //     { name: "Tablet", price: 500 },
-// //     { name: "Monitor", price: 300 },
-// //     { name: "Mouse", price: 50 },
-// // ];
-
-// const priceFilters = [
-//     { label: "All Prices", value: "all" },
-//     { label: "Under 300", value: "under-300" },
-//     { label: "Under 600", value: "under-600" },
-//     { label: "Over 1000", value: "over-1000" },
-// ];
-
-// const PriceDropDown = () => {
-//     const [selectedFilter, setSelectedFilter] = useState("all");
-
-//     // const filteredProducts = products.filter((product) => {
-//     //     if (selectedFilter === "under-500") return product.price < 500;
-//     //     if (selectedFilter === "500-1000")
-//     //         return product.price >= 500 && product.price <= 1000;
-//     //     if (selectedFilter === "over-1000") return product.price > 1000;
-//     //     return true; // 'all'
-//     // });
-
-//     return (
-//         <div className="max-w-md mx-auto mt-4 p-6 bg-white rounded shadow">
-//             <h1 className="text-xl font-bold mb-4">Product Prices</h1>
-
-//             {/* Dropdown */}
-//             <div className="mb-4">
-//                 <select
-//                     className="w-full px-4 py-2 border border-zinc-200 rounded text-gray-700 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                     value={selectedFilter}
-//                     onChange={(e) => setSelectedFilter(e.target.value)}
-//                 >
-//                     {priceFilters.map((filter) => (
-//                         <option key={filter.value} value={filter.value}>
-//                             {filter.label}
-//                         </option>
-//                     ))}
-//                 </select>
-//             </div>
-
-//         </div>
-//     );
-// };
-
-// export default PriceDropDown;
-
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setPriceFilter } from "../../../store/Reducers/productFilterReducer";
 
 const priceFilters = [
     { label: "All Prices", value: "all" },
-    { label: "Under ₹300", value: "under-300" },
-    { label: "Under ₹600", value: "under-600" },
-    { label: "Over ₹1000", value: "over-1000" },
+    { label: "Under ₹300", value: 300 },
+    { label: "Under ₹600", value: 600 },
+    { label: "Over ₹1000", value:  1000 },
 ];
 
 const PriceDropDown = () => {
-    const [selectedFilter, setSelectedFilter] = useState("all");
+
     const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    const selectedFilter = useSelector(
+        (state) => state.productFilterReducer.selectedPrice
+    );
 
     const selectedLabel =
         priceFilters.find((f) => f.value === selectedFilter)?.label ||
         "All Prices";
 
     const handleSelect = (value) => {
-        setSelectedFilter(value);
+        dispatch(setPriceFilter(value));
         setOpen(false);
     };
 
@@ -105,4 +59,3 @@ const PriceDropDown = () => {
 };
 
 export default PriceDropDown;
-    

@@ -1,13 +1,20 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setColorFilter } from "../../../store/Reducers/productFilterReducer";
 
-const colors = ["Red", "Blue", "Black", "White", "Green", "Yellow", "Pink"];
+const colors = ["all","red", "blue", "black", "white", "green", "yellow", "pink"];
 
 export default function ColorDropDown() {
-    const [selectedColor, setSelectedColor] = useState(null);
     const [open, setOpen] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const selectedColor = useSelector(
+        (state) => state.productFilterReducer.selectedColor
+    );
+
     const handleSelect = (color) => {
-        setSelectedColor(color);
+        dispatch(setColorFilter(color));
         setOpen(false);
     };
 

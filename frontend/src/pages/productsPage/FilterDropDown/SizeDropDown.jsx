@@ -1,13 +1,20 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSizeFilter } from "../../../store/Reducers/productFilterReducer";
 
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+const sizes = ["ALL", "XS", "S", "M", "L", "XL", "XXL"];
 
 export default function SizeDropDown() {
-    const [selectedSize, setSelectedSize] = useState(null);
     const [open, setOpen] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const selectedSize = useSelector(
+        (state) => state.productFilterReducer.selectedSize
+    );
+
     const handleSelect = (size) => {
-        setSelectedSize(size);
+        dispatch(setSizeFilter(size));
         setOpen(false);
     };
 

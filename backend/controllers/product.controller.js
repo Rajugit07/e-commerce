@@ -184,6 +184,11 @@ export const productFilterByCategory = async (req, res) => {
         const subCategory = normalize(req.query.subCategory);
         const productType = normalize(req.query.productType);
 
+        //  filters
+        const max = parseFloat(req.query.max); // price filter
+        const color = normalize(req.query.color);
+        const size = normalize(req.query.size);
+
         // Ensure all three values are provided
         if (!category || !subCategory || !productType) {
             return res.status(400).json({
@@ -197,6 +202,21 @@ export const productFilterByCategory = async (req, res) => {
             subCategory: new RegExp(`^${subCategory}$`, "i"),
             productType: new RegExp(`^${productType}$`, "i"),
         };
+
+         //  price filter
+         if (!isNaN(max)) {
+            filter.price = { $lte: max };
+        }
+
+          //  color filter
+          if (color) {
+            filter.color = { $in: [new RegExp(`^${color}$`, "i")] };
+        }
+
+        //  size filter
+        if (size) {
+            filter.size = { $in: [new RegExp(`^${size}$`, "i")] };
+        }
 
         const products = await Product.find(filter);
 
