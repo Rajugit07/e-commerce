@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSizeFilter } from "../../../store/Reducers/productFilterReducer";
 
-const sizes = ["ALL", "XS", "S", "M", "L", "XL", "XXL"];
+const sizes = ["all", "XS", "S", "M", "L", "XL", "XXL"];
 
 export default function SizeDropDown() {
     const [open, setOpen] = useState(false);

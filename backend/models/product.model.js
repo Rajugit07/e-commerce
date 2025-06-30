@@ -48,8 +48,8 @@ const productSchema = new Schema(
             required: true,
         },
         color: {
-            type:[String],
-            required:true
+            type: [String],
+            required: true,
         },
         checked: {
             type: Boolean,
@@ -59,6 +59,16 @@ const productSchema = new Schema(
             type: Number,
             required: true,
             default: 1,
+        },
+        discount: {
+            type: Number,
+            required: true,
+            default: 10,
+        },
+        coupon: {
+            type: Number,
+            required: true,
+            default: 20,
         },
     },
     {

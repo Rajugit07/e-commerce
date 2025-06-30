@@ -1,15 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PriceDropDown from "./FilterDropDown/PriceDropDown";
 import SizeDropDown from "./FilterDropDown/SizeDropDown";
 import ColorDropDown from "./FilterDropDown/ColorDropDown ";
 
 const FilterComponent = () => {
+    const { category, subCategory, productType } = useParams();
+
+    const breadcrumb = [
+        { label: "Home", path: "/" },
+        { label: category, path: `/${category}` },
+        { label: subCategory, path: `/${category}/${subCategory}` },
+        {
+            label: productType,
+            path: `/${category}/${subCategory}/${productType}`,
+        },
+    ];
+
     return (
         <div className="h-full max-sm:hidden ">
+            
             {/* navigation stage */}
-            <section className="">
-                <Link>home/man/t-shirt</Link>
+            <section className="text-sm text-gray-600">
+                {breadcrumb.map((crumb, index) => (
+                    <span key={index}>
+                        <Link
+                            to={crumb.path}
+                            className="text-black hover:underline capitalize"
+                        >
+                            {crumb.label}
+                        </Link>
+                        {index < breadcrumb.length - 1 && (
+                            <span className="mx-1">/</span>
+                        )}
+                    </span>
+                ))}
             </section>
 
             {/* filter section */}
