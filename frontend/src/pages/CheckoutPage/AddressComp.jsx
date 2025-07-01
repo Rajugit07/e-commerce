@@ -12,10 +12,9 @@ const AddressComp = () => {
             const data = await pinCodeApi(pincode);
             setData(data[0].PostOffice[0]);
         } catch (error) {
-            console.log(error);
+            throw error.response?.data || { message: "Something went wrong" };
         }
     };
-    console.log(data);
 
     const handleSubmit = () => {
         handlePinCode(pinCode);
@@ -50,7 +49,13 @@ const AddressComp = () => {
                         placeholder="Enter pincode"
                         className="border border-zinc-200 p-2 rounded-md"
                         value={pinCode}
-                        onChange={(e) => setIsPinCode(e.target.value.replace(/[^0-9]/g, '').slice(0,6))}
+                        onChange={(e) =>
+                            setIsPinCode(
+                                e.target.value
+                                    .replace(/[^0-9]/g, "")
+                                    .slice(0, 6)
+                            )
+                        }
                     />
                     <button
                         className="w-full bg-green-500 p-2 text-white rounded-md cursor-pointer font-semibold"
