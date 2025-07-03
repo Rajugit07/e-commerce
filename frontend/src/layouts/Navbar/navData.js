@@ -32,3 +32,11 @@ export const dropDownSubDataBeauty = {
     haircare:["Shampoo","Conditioner","Hair Oil","Hair Gel"],
     fragrance:["Perfume","Deodorant","Body Mist"]
 }
+
+export default {
+    dropDownData,
+    dropDownSubDataMan,
+    dropDownSubDataWomen,
+    dropDownSubDataKids,
+    dropDownSubDataBeauty
+};
