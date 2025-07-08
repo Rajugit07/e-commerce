@@ -1,6 +1,13 @@
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function CategoryScroll({ categoryName, subcategories, image }) {
+export default function CategoryScroll({
+    categoryName,
+    subcategories,
+    image,
+    dropDownSubData, // receiving dropDownSubData
+}) {
+    const navigate = useNavigate();
     const scrollRef = useRef(null);
 
     const isDragging = useRef(false);
@@ -29,6 +36,26 @@ export default function CategoryScroll({ categoryName, subcategories, image }) {
         scrollRef.current.scrollLeft = scrollLeft.current - walk;
     };
 
+    // Function to handle navigation
+    const handleShopNowClick = (sub) => {
+        const categorySlug = categoryName.toLowerCase(); // men, woman, kids, beauty
+        const subcategorySlug = sub.toLowerCase().replace(/\s+/g, "");
+
+        // Get the corresponding product list from dropDownSubData
+        const productList = dropDownSubData[subcategorySlug];
+
+        // Get the first product item, fallback to "t-shirt" if undefined
+        const firstProductItem =
+            productList && productList.length > 0
+                ? productList[0].toLowerCase().replace(/\s+/g, "")
+                : "t-shirt";
+
+        // Final URL
+        const url = `/${categorySlug}/${subcategorySlug}/${firstProductItem}`;
+        console.log("Navigating to:", url);
+        navigate(url);
+    };
+
     return (
         <div className="p-4 mb-4">
             <h1 className="text-xl font-bold">{categoryName.toUpperCase()}</h1>
@@ -39,24 +66,41 @@ export default function CategoryScroll({ categoryName, subcategories, image }) {
                 onMouseUp={onMouseUp}
                 onMouseMove={onMouseMove}
                 className="flex flex-wrap gap-4 justify-between items-center mt-2 p-4 rounded-md
-                  max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:justify-start max-sm:hide-scrollbar cursor-grab active:cursor-grabbing"
+                  max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:justify-start max-sm:hide-scrollbar cursor-grab active:cursor-grabbing hide-scrollbar"
             >
                 {subcategories.map((sub, idx) => (
                     <div
                         key={idx}
-                        className="bg-white h-auto w-60 max-sm:w-60 flex-shrink-0 text-center px-2 py-3 rounded-md border border-zinc-200 text-gray-800 hover:shadow-lg transition-shadow duration-200 flex flex-col"
+                        className="relative bg-white h-80 w-72 max-sm:w-60 flex-shrink-0 rounded-lg border border-zinc-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-200"
                     >
-                        <h2 className="mb-2 mt-1 text-lg font-semibold">
-                            {sub}
-                        </h2>
                         <img
                             src={image}
                             alt={`${sub} image`}
-                            className="w-full h-40 object-cover rounded mb-3"
+                            className="absolute top-0 left-0 w-full h-full object-cover "
                         />
-                        <button className="w-full bg-black text-white px-6 py-2 rounded-md cursor-pointer font-semibold hover:bg-zinc-800">
-                            Shop Now
-                        </button>
+
+                        {/* Optional overlay for readability */}
+                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/20 via-transparent to-black/30"></div>
+
+                        <div className="relative z-10 flex flex-col justify-between h-full p-4">
+                            {/* Header section with title and badge side by side */}
+                            <div className="flex items-center justify-between w-full mb-4">
+                                <h2 className="text-sm font-semibold text-white bg-black/30 backdrop-blur-sm px-3 py-1 rounded-md">
+                                    {sub}
+                                </h2>
+                                <span className="text-xs font-medium text-white bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/30">
+                                    New
+                                </span>
+                            </div>
+
+                            {/* CTA Button */}
+                            <button
+                                onClick={() => handleShopNowClick(sub)}
+                                className="w-full bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-md font-semibold uppercase hover:bg-white/30 transition-colors duration-200"
+                            >
+                                Explore the Collection
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

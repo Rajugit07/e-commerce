@@ -4,23 +4,32 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
     return (
-        <div className="w-full h-screen px-5 mb-4 max-sm:px-2  ">
-            <div className="relative w-full h-full bg-white border border-zinc-100 shadow rounded-2xl max-sm:mt-5">
+        <div className="w-full h-screen px-5 mb-4 max-sm:px-2 flex items-center justify-center bg-zinc-50 ">
+            <div className="relative w-full h-[90vh] max-w-8xl bg-white border border-zinc-100 shadow rounded-2xl overflow-hidden max-sm:mt-5">
+                {/* Hero Image */}
                 <img
                     src={banner}
-                    alt="banner"
-                    className="w-full h-full object-cover rounded-2xl p-2"
+                    alt="Banner showcasing minimalist fashion"
+                    className="absolute top-0 left-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
-                    <h1 className="text-5xl font-bold text-white">
-                        Less Noise. More Style
+
+                {/* Overlay for better readability */}
+                <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col justify-center items-center text-center p-6 h-full">
+                    <h1 className="text-5xl max-sm:text-3xl font-bold text-white drop-shadow-md">
+                        Less Noise. More Style.
                     </h1>
-                    <p className="text-4xl font-bold text-white mt-2">
-                        Evaluate Essential.
+                    <p className="text-2xl max-sm:text-lg font-medium text-white mt-3 drop-shadow-sm">
+                        Evaluate Essentials.
                     </p>
-                    <button className="text-sm bg-gradient-to-b from-[#363838] to-[#222424] px-3 py-2 mt-4 text-white rounded-md hover:bg-[#191A1A] ">
-                        <Link to="/"> Explore More</Link>
-                    </button>
+
+                    <Link to="/" className="mt-6">
+                        <button className="text-sm md:text-base bg-gradient-to-r from-zinc-800 to-zinc-600 px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 hover:shadow-lg active:scale-100 transition-transform duration-200 ease-in-out cursor-pointer">
+                            Explore More
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

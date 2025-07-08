@@ -19,7 +19,6 @@ import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
 import { Toaster } from "react-hot-toast";
 
-
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -32,7 +31,7 @@ const Navbar = () => {
     };
     return (
         <div className="w-full h-auto sticky top-0 z-[9999] bg-white">
-            <nav className="flex items-center justify-between sm:p-4.5  border-b border-zinc-200">
+            <nav className="flex items-center justify-between sm:p-4.5  border-b border-zinc-200 font-gucciSansPro">
                 {/* Full Menu (Desktop) */}
                 <div>
                     <div className=" bg-white p-2 rounded-md shadow max-sm:hidden ">
@@ -40,7 +39,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className="bg-white border border-zinc-100 px-6 py-1 rounded-md md:flex shadow max-sm:hidden ">
-                    <ul className="flex gap-6 text-sm font-normal text-zinc-800">
+                    <ul className="flex gap-6 text-sm  text-zinc-800">
                         <NavItem
                             label="Men"
                             path="/men"
@@ -166,18 +165,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
