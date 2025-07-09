@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 export default function CategoryScroll({
     categoryName,
     subcategories,
-    image,
-    dropDownSubData, // receiving dropDownSubData
+    getCategoryImage,
+    dropDownSubData,
 }) {
     const navigate = useNavigate();
     const scrollRef = useRef(null);
@@ -71,17 +71,23 @@ export default function CategoryScroll({
                 {subcategories.map((sub, idx) => (
                     <div
                         key={idx}
-                        className="relative bg-white h-80 w-72 max-sm:w-60 flex-shrink-0 rounded-lg border border-zinc-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-200"
+                        className="relative bg-white h-84 w-72 max-sm:w-60 flex-shrink-0 rounded-lg border border-zinc-200 overflow-hidden shadow-sm hover:scale-105 transition-scale duration-300"
                     >
-                        <img
-                            src={image}
-                            alt={`${sub} image`}
-                            className="absolute top-0 left-0 w-full h-full object-cover "
-                        />
-
-                        {/* Optional overlay for readability */}
+                        {/* image */}
+                        {getCategoryImage &&
+                        getCategoryImage(categoryName, sub) ? (
+                            <img
+                                src={getCategoryImage(categoryName, sub)}
+                                alt={`${sub} image`}
+                                className="absolute top-0 left-0 w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                                No Image
+                            </div>
+                        )}
+                        {/* overlay for readability */}
                         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/20 via-transparent to-black/30"></div>
-
                         <div className="relative z-10 flex flex-col justify-between h-full p-4">
                             {/* Header section with title and badge side by side */}
                             <div className="flex items-center justify-between w-full mb-4">
