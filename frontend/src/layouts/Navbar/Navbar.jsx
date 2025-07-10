@@ -19,6 +19,19 @@ import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
 import { Toaster } from "react-hot-toast";
 
+const products = [
+    "Apple iPhone 15",
+    "Samsung Galaxy S24",
+    "OnePlus 12",
+    "Redmi Note 13",
+    "Realme GT Neo",
+    "Vivo V30",
+    "Oppo Reno11",
+    "Oppo Reno11",
+    "Oppo Reno11",
+    "Oppo Reno11",
+];
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -29,6 +42,24 @@ const Navbar = () => {
     const toggleDropdownMobile = () => {
         setIsOpen3(!isOpen3);
     };
+
+    //search product
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState("");
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setQuery(value);
+
+        // Filter products based on input
+        const filtered = products.filter((product) =>
+            product.toLowerCase().includes(value.toLowerCase())
+        );
+        setResults(filtered);
+    };
+
+
+
     return (
         <div className="w-full h-auto sticky top-0 z-[9999] bg-white">
             <nav className="flex items-center justify-between sm:p-4.5  border-b border-zinc-200 font-gucciSansPro">
@@ -72,10 +103,38 @@ const Navbar = () => {
                     <IoIosSearch className="absolute text-lg text-zinc-700 top-3 left-3" />
                     <input
                         type="text"
+                        value={query}
+                        onChange={handleSearch}
                         placeholder="Search..."
                         className="outline-none rounded-md p-1 pl-3 "
                     />
                 </div>
+
+                {results.length > 0 && (
+                    <div
+                        className="
+                                fixed sm:absolute sm:left-[53vw] sm:top-17 sm:w-62 sm:h-75
+                                left-0 top-30 w-full h-[300px]
+                                bg-white overflow-y-scroll border border-zinc-200 shadow-xl hide-scrollbar rounded-sm z-[999] px-2
+    "
+                    >
+                        {results.map((item, index) => (
+                            <div
+                                key={index}
+                                className="hover:bg-gray-200 cursor-pointer transition-hover duration-200"
+                                style={{
+                                    padding: "10px",
+                                    borderBottom:
+                                        index !== results.length - 1
+                                            ? "1px solid #eee"
+                                            : "",
+                                }}
+                            >
+                                <Link className="text-sm">{item}</Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 {/* user profile and login */}
                 <div className="bg-white border border-zinc-100 px-6 py-1 rounded-md md:flex  shadow max-sm:hidden ">
@@ -149,10 +208,12 @@ const Navbar = () => {
             </div>
 
             {/* Search */}
-            <div className="w-full px-1 sm:hidden relative">
+            <div className="w-full p-1 sm:hidden relative">
                 <IoIosSearch className="absolute top-3 left-4 text-xl text-zinc-700" />
                 <input
                     type="text"
+                    value={query}
+                    onChange={handleSearch}
                     placeholder="search..."
                     className="w-full border border-zinc-300 pl-10 px-3 py-2 rounded-full outline-none"
                 />

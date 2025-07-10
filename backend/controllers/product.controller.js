@@ -234,4 +234,51 @@ export const productFilterByCategory = async (req, res) => {
     }
 };
 
+// search product
 
+export const searchProduct = async (req,res) => {
+    try {
+        const {query} = req.query;
+
+        if(!query) {
+            return res.status(400).json({
+                success:false,
+                message:"Search query is required"
+            })
+        }
+
+        const searchRegex = new RegExp(query, 'i');
+        const searchFields = ['title', 'description','category','subCategory','productType'];
+
+        const products = await Product.find({
+            $or: searchFields.map(field => ({
+                [field]: {
+                    $regex: searchRegex
+                }
+            }))
+        }).limit(10);
+
+        if (products.length === 0) {
+            return res.status(404).json({
+                success: true,
+                message: 'No products found matching your search.',
+                data: []
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Products fetched successfully.',
+            count: products.length,
+            data: products
+        });
+
+    } catch (error) {
+        console.error('Error searching products:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error during product search.',
+            error: error.message
+        });
+    }
+}

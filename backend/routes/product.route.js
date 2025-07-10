@@ -1,5 +1,5 @@
 import express from "express";
-import { createProduct, filterProductByColor, filterProductBySize, filterProductsByPrice, getAllProducts, productFilterByCategory } from "../controllers/product.controller.js";
+import { createProduct, filterProductByColor, filterProductBySize, filterProductsByPrice, getAllProducts, productFilterByCategory, searchProduct } from "../controllers/product.controller.js";
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.route("/products/filterBySize").get(filterProductBySize);
 router.route("/products/filterByColor").get(filterProductByColor);
 router.route("/products/getAllProduct").get(getAllProducts);
 router.route("/products").get(productFilterByCategory);
+router.route("/").get(searchProduct);
 
 
 export default router;
