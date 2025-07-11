@@ -9,7 +9,7 @@ router.route("/products/filterBySize").get(filterProductBySize);
 router.route("/products/filterByColor").get(filterProductByColor);
 router.route("/products/getAllProduct").get(getAllProducts);
 router.route("/products").get(productFilterByCategory);
-router.route("/").get(searchProduct);
+router.route("/search").get(searchProduct);
 
 
 export default router;

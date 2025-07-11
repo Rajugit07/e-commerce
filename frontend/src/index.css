@@ -1,34 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
-@font-face {
-  font-family: Giarek;
-  src: url("../src/assets/fonts/Giarek-Regular.woff");
-  font-family: LouisVuitton;
-  src: url("../src/assets/fonts/LouisVuitton-Regular.woff2");
-  font-family: GucciSansPro;
-  src: url("../src/assets/fonts/GucciSansPro-Light.woff2")
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap");
 @import "tailwindcss";
 
-@theme {
-  --shadow-: [0_16px_16px_-8px_#191a1a05, 0_8px_8px_-4px_#191a1a05,
-      0_4px_4px_-2px_#191a1a05, 0_2px_2px_-1px_#191a1a08,
-      0_1px_1px_-0.5px_#191a1a08, 0_0_0_1px_#191a1a08];
-
-  --breakpoint-*: initial;
-  --breakpoint-sm: 480px;
-  --breakpoint-sm: 768px;
-  --breakpoint-sm: 976px;
-
-  --font-doto: Doto,"sans-sarif";
-  --font-giarek: Giarek,"sans-sarif";
-  --font-louisVuitton:LouisVuitton,"sans-sarif";
-  --font-gucciSansPro:GucciSansPro,"sans-sarif";
-
+@font-face {
+    font-family: Giarek;
+    src: url("../src/assets/fonts/Giarek-Regular.woff");
 }
 
-*{
-  font-family: "gucciSansPro";
+@font-face {
+    font-family: LouisVuitton;
+    src: url("../src/assets/fonts/LouisVuitton-Regular.woff2");
+}
+
+@font-face {
+    font-family: GucciSansPro;
+    src: url("../src/assets/fonts/GucciSansPro-Light.woff2");
+}
+
+* {
+    font-family: var(--font-gucciSansPro);
+}
+
+:root {
+    --shadow-input: 0px 2px 3px -1px rgba(0, 0, 0, 0.1),
+        0px 1px 0px rgba(25, 28, 33, 0.02),
+        0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+}
+
+@theme {
+    --shadow-: [0_16px_16px_-8px_#191a1a05, 0_8px_8px_-4px_#191a1a05,
+        0_4px_4px_-2px_#191a1a05, 0_2px_2px_-1px_#191a1a08,
+        0_1px_1px_-0.5px_#191a1a08, 0_0_0_1px_#191a1a08];
+
+    --breakpoint-*: initial;
+    --breakpoint-sm: 480px;
+    --breakpoint-sm: 768px;
+    --breakpoint-sm: 976px;
+
+    --font-doto: Doto, "sans-serif";
+    --font-giarek: Giarek, "sans-serif";
+    --font-louisVuitton: LouisVuitton, "sans-serif";
+    --font-gucciSansPro: GucciSansPro, "sans-serif";
+}
+
+* {
+    font-family: "gucciSansPro";
 }
 
 /* Hide scrollbar but keep functionality */
@@ -41,13 +56,6 @@
     scrollbar-width: none; /* Firefox */
 }
 
-
 /* Headings: Playfair Display or Cinzel
 Subheadings/Menu: Montserrat or Raleway
 Body text: Lora or Montserrat Regular */
-
-
-/* in global css or tailwind base layer */
-/* html, body {
-  overflow-x: hidden;
-} */

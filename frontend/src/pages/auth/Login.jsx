@@ -49,7 +49,7 @@ const Login = () => {
                                 type="password"
                                 placeholder="Password"
                                 name="password"
-                                className="border border-zinc-200 px-4 py-3 outline-none rounded-lg w-full"
+                                className="border border-zinc-200 px-4 py-3 outline-none rounded-lg w-full "
                                 onChange={changeHandler}
                                 value={input.password}
                             />

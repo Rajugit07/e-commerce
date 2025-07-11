@@ -248,7 +248,8 @@ export const searchProduct = async (req,res) => {
         }
 
         const searchRegex = new RegExp(query, 'i');
-        const searchFields = ['title', 'description','category','subCategory','productType'];
+        // const searchFields = ['title', 'description','category','subCategory','productType'];
+        const searchFields = ['title',"description"];
 
         const products = await Product.find({
             $or: searchFields.map(field => ({

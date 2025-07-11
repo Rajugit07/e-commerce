@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { FaAngleDown } from "react-icons/fa6";
@@ -18,19 +18,7 @@ import {
 import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
 import { Toaster } from "react-hot-toast";
-
-const products = [
-    "Apple iPhone 15",
-    "Samsung Galaxy S24",
-    "OnePlus 12",
-    "Redmi Note 13",
-    "Realme GT Neo",
-    "Vivo V30",
-    "Oppo Reno11",
-    "Oppo Reno11",
-    "Oppo Reno11",
-    "Oppo Reno11",
-];
+import { searchProduct } from "../../api/productApi/searchProduct";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -45,20 +33,54 @@ const Navbar = () => {
 
     //search product
     const [query, setQuery] = useState("");
-    const [results, setResults] = useState("");
+    const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         const value = e.target.value;
         setQuery(value);
-
-        // Filter products based on input
-        const filtered = products.filter((product) =>
-            product.toLowerCase().includes(value.toLowerCase())
-        );
-        setResults(filtered);
     };
 
+    useEffect(() => {
+        const delayDebounce = setTimeout(() => {
+            const fetchData = async () => {
+                if (query.trim() === "") {
+                    setResults([]);
+                    return;
+                }
 
+                try {
+                    setLoading(true);
+                    const response = await searchProduct({ query });
+                    const products = response.data;
+
+                    const filtered = products.filter((product) => {
+                        const combinedFields = `
+                  ${product.productType || ""}
+                  ${product.title || ""}
+                  ${product.subCategory || ""}
+                  ${product.category || ""}
+                `.toLowerCase();
+
+                        return combinedFields.includes(
+                            query.trim().toLowerCase()
+                        );
+                    });
+
+                    setResults(filtered);
+                } catch (error) {
+                    console.error("Search error:", error);
+                    setResults([]);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            fetchData();
+        }, 500); // debounce time: 500ms
+
+        return () => clearTimeout(delayDebounce);
+    }, [query]);
 
     return (
         <div className="w-full h-auto sticky top-0 z-[9999] bg-white">
@@ -115,7 +137,7 @@ const Navbar = () => {
                         className="
                                 fixed sm:absolute sm:left-[53vw] sm:top-17 sm:w-62 sm:h-75
                                 left-0 top-30 w-full h-[300px]
-                                bg-white overflow-y-scroll border border-zinc-200 shadow-xl hide-scrollbar rounded-sm z-[999] px-2
+                                bg-white overflow-y-scroll border border-zinc-200 shadow-xl hide-scrollbar rounded-sm z-[999]
     "
                     >
                         {results.map((item, index) => (
@@ -130,7 +152,21 @@ const Navbar = () => {
                                             : "",
                                 }}
                             >
-                                <Link className="text-sm">{item}</Link>
+                                {loading && (
+                                    <div className="text-center">
+                                        Loading...
+                                    </div>
+                                )}
+                                <Link
+                                    className="text-sm"
+                                    to={`/${item.category}/${item.subCategory}/${item.productType}`}
+                                    onClick={() => {
+                                        setQuery(""); // clear input field
+                                        setResults([]); // clear search results
+                                    }}
+                                >
+                                    {item.productType} - {item.category}
+                                </Link>
                             </div>
                         ))}
                     </div>
