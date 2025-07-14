@@ -1,27 +1,51 @@
 import React from "react";
 import SizeSelector from "../../../components/SizeSelector";
 import QtySelector from "../../../components/QtySelector";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
+import {
+    addToWishlist,
+    setSelectedProduct,
+} from "../../../store/Reducers/productsReducer";
 
-const ProductDescription = () => {
+import { useDispatch } from "react-redux";
+
+const ProductDescription = ({ items }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    //add to cart
+    const handleShopNow = (item) => {
+        dispatch(setSelectedProduct(item));
+        navigate(`/checkout/cart/`);
+    };
+
+    const handleAddToWishlist = (e, item) => {
+        e.stopPropagation();
+        dispatch(addToWishlist(item));
+        navigate(`/wishlist`);
+    };
+
+    const lastProduct = items[items.length - 1];
+    // console.log(lastProduct);
+
     return (
         <div className=" w-full max-w-3xl mx-auto px-6 max-sm:px-1">
             <div className="space-y-5 max-sm:space-y-3">
                 {/* Title */}
-                <h1 className="text-3xl font-bold tracking-tight text-zinc-900 max-sm:text-sm">
-                    Levis
+                <h1 className="text-3xl font-bold tracking-tight text-zinc-900 max-sm:text-sm uppercase">
+                    {lastProduct.productType}
                 </h1>
 
                 {/* Description */}
                 <p className="text-base text-zinc-600 max-sm:text-sm truncate">
-                    Men Soft Pure Cotton Round Neck Half Sleeve T-shirt
+                    {lastProduct.description}
                 </p>
 
                 {/* Price */}
                 <div className="space-y-1">
                     <p className="text-2xl font-bold text-zinc-800 max-sm:text-sm">
-                        MRP ₹299
+                        RS:{lastProduct.price}
                     </p>
                     <p className="text-[13px] text-[#03a685] font-medium">
                         inclusive of all taxes
@@ -33,9 +57,9 @@ const ProductDescription = () => {
                     <div className="flex-1">
                         <SizeSelector />
                     </div>
-                    <div className="flex-1">
+                    {/* <div className="flex-1">
                         <QtySelector />
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Buttons */}
@@ -47,7 +71,19 @@ const ProductDescription = () => {
 
                     {/* Desktop/Tablet inline buttons */}
                     <div className="hidden sm:flex gap-4">
-                        <Button />
+                        {/* <Button /> */}
+                        <button
+                            onClick={(e) => handleAddToWishlist(e, lastProduct)}
+                            className="border px-4 py-1 rounded cursor-pointer"
+                        >
+                            wishlist
+                        </button>
+                        <button
+                            onClick={() => handleShopNow(lastProduct)}
+                            className="border px-4 py-1 rounded cursor-pointer"
+                        >
+                            buy Now
+                        </button>
                     </div>
                 </div>
             </div>

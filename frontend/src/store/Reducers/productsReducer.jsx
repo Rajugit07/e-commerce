@@ -26,12 +26,25 @@ const productSlice = createSlice({
         setSelectedProduct: (state, action) => {
             const existingProducts =
                 JSON.parse(localStorage.getItem("selectedProduct")) || [];
-            existingProducts.push(action.payload);
-            localStorage.setItem(
-                "selectedProduct",
-                JSON.stringify(existingProducts)
+
+
+
+            // Check if product already exists (assuming product has unique id or productId)
+            const isExist = existingProducts.some(
+                (item) => item.productId === action.payload.productId
             );
-            state.selectedProduct = existingProducts;
+
+            if (!isExist) {
+                existingProducts.push(action.payload);
+                localStorage.setItem(
+                    "selectedProduct",
+                    JSON.stringify(existingProducts)
+                );
+                state.selectedProduct = existingProducts;
+            } else {
+                // If needed, update state with existing without changes
+                state.selectedProduct = existingProducts;
+            }
         },
         clearSelectedProduct: (state, action) => {
             const existingProducts =
@@ -46,23 +59,39 @@ const productSlice = createSlice({
             state.selectedProduct = updatedProducts;
         },
         addToWishlist: (state, action) => {
-            let existingWishlist = JSON.parse(localStorage.getItem("wishlistProduct"));
+            let existingWishlist = JSON.parse(
+                localStorage.getItem("wishlistProduct")
+            );
 
             if (!Array.isArray(existingWishlist)) {
                 existingWishlist = [];
             }
 
-            existingWishlist.push(action.payload);
-
-            localStorage.setItem(
-                "wishlistProduct",
-                JSON.stringify(existingWishlist)
+            // Filter out any null or invalid items to prevent runtime errors
+            existingWishlist = existingWishlist.filter(
+                (item) => item && item.productId
             );
 
-            state.wishlistProduct = existingWishlist;
+            const isExist = existingWishlist.some(
+                (item) => item.productId === action.payload.productId
+            );
+
+            if (!isExist) {
+                existingWishlist.push(action.payload);
+                localStorage.setItem(
+                    "wishlistProduct",
+                    JSON.stringify(existingWishlist)
+                );
+                state.wishlistProduct = existingWishlist;
+            } else {
+                // If needed, update state with existing without changes
+                state.wishlistProduct = existingWishlist;
+            }
         },
         clearWishlist: (state, action) => {
-            let existingWishlist = JSON.parse(localStorage.getItem("wishlistProduct"));
+            let existingWishlist = JSON.parse(
+                localStorage.getItem("wishlistProduct")
+            );
 
             if (!Array.isArray(existingWishlist)) {
                 existingWishlist = [];
@@ -79,8 +108,6 @@ const productSlice = createSlice({
 
             state.wishlistProduct = updatedWishlist;
         },
-
-
     },
 });
 
@@ -94,4 +121,3 @@ export const {
     addToWishlist,
     clearWishlist,
 } = productSlice.actions;
-

@@ -15,12 +15,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/:category/:subCategory/:productType" element={<ProductsPage />} />
-                <Route path="/products/mens-sneakers" element={<ProductComponent />} />
-                <Route path="/wishlist/:productId" element={<WishlistPage/>}/>
-                <Route path="/checkout/cart/:productId" element={<CheckoutPage/>}/>
+                <Route path="/product/description" element={<ProductComponent />} />
+                <Route path="/wishlist" element={<WishlistPage/>}/>
+                <Route path="/checkout/cart" element={<CheckoutPage/>}/>
             </Routes>
         </div>
     );
 }
 export default App;
-0

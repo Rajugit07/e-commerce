@@ -11,14 +11,14 @@ const Cart = ({ items }) => {
     //add to cart
     const handleShopNow = (item) => {
         dispatch(setSelectedProduct(item));
-        navigate(`/checkout/cart/${item._id}`);
+        navigate(`/product/description`);
     };
 
     //wishlist
     const handleAddToWishlist = (e, item) => {
         e.stopPropagation();
         dispatch(addToWishlist(item));
-        navigate(`/wishlist/${item._id}`);
+        navigate(`/wishlist`);
     };
 
     return (
