@@ -9,6 +9,10 @@ const ProductComponent = () => {
   const selectedProduct = useSelector((state) => state.productReducer.selectedProduct);
 //   console.log(selectedProduct);
 
+//   const currentProduct = useSelector((state)=> state.productReducer.sendProduct);
+//   console.log(currentProduct);
+
+
 
 
     return (

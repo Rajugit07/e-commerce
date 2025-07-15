@@ -1,14 +1,12 @@
 import React from "react";
 import SizeSelector from "../../../components/SizeSelector";
-import QtySelector from "../../../components/QtySelector";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import {
     addToWishlist,
     setSelectedProduct,
 } from "../../../store/Reducers/productsReducer";
-
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductDescription = ({ items }) => {
     const dispatch = useDispatch();
@@ -27,7 +25,10 @@ const ProductDescription = ({ items }) => {
     };
 
     const lastProduct = items[items.length - 1];
-    // console.log(lastProduct);
+    // console.log();
+
+    const currentProduct = useSelector((state) => state.productReducer.currentProduct);
+    console.log(currentProduct);
 
     return (
         <div className=" w-full max-w-3xl mx-auto px-6 max-sm:px-1">
@@ -74,13 +75,13 @@ const ProductDescription = ({ items }) => {
                         {/* <Button /> */}
                         <button
                             onClick={(e) => handleAddToWishlist(e, lastProduct)}
-                            className="border px-4 py-1 rounded cursor-pointer"
+                            className="border border-zinc-200 px-4 py-1 rounded cursor-pointer hover:border-zinc-600 transition-border duration-200"
                         >
                             wishlist
                         </button>
                         <button
                             onClick={() => handleShopNow(lastProduct)}
-                            className="border px-4 py-1 rounded cursor-pointer"
+                            className="border border-zinc-200 px-4 py-1 rounded cursor-pointer hover:border-zinc-600 transition-border duration-200"
                         >
                             buy Now
                         </button>
