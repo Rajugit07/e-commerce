@@ -1,29 +1,79 @@
 import React from "react";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { IoMdArrowDropright } from "react-icons/io";
+import { useSelector } from "react-redux";
 
-const ProductImage = ({ items }) => {
-
-    const lastProduct = items[items.length - 1];
-
-    const imageUrl = lastProduct?.image?.[0]?.url;
+const ProductImage = () => {
+    const currentProduct = useSelector(
+        (state) => state.productReducer.currProduct
+    );
+    const [activeIndex, setActiveIndex] = React.useState(0); // Initialize activeIndex this.state.
 
     return (
-        <div className="w-full md:w-1/2 h-[500px] relative">
-            <div className="h-full rounded-xl overflow-hidden">
-                {imageUrl ? (
+        <div className="w- h-[500px] md:w-1/2 flex flex-col items-center">
+            {/* Main image */}
+            <div className="w-full aspect-square relative rounded-2xl overflow-hidden shadow-xl flex">
+                {/* Left thumbnail strip */}
+                <div className="w-[25%] h-full bg-zinc-50 p-2 flex flex-col gap-2 overflow-y-auto">
+                    {currentProduct.image.map((img, idx) => (
+                        <button
+                            key={img.url}
+                            onClick={() => setActiveIndex(idx)}
+                            className={`w-full aspect-square rounded-md overflow-hidden border-2 transition-all duration-200
+                  ${
+                      activeIndex === idx
+                          ? "border-indigo-500 ring-2 ring-indigo-300"
+                          : "border-zinc-200 hover:border-zinc-400"
+                  }`}
+                        >
+                            <img
+                                src={img.url}
+                                alt={`thumb-${idx}`}
+                                className="w-full h-full object-cover"
+                            />
+                        </button>
+                    ))}
+                </div>
+
+                {/* Right main image */}
+                <div className="w-[75%] h-full">
                     <img
-                        src={imageUrl}
-                        alt={lastProduct?.title || "product"}
+                        src={currentProduct.image[activeIndex].url}
+                        alt={currentProduct?.title || "product"}
                         className="w-full h-full object-cover"
                     />
-                ) : (
-                    <p>No image available</p>
-                )}
+                </div>
             </div>
-            <div className="flex items-center justify-center mt-4 gap-16">
-                <IoMdArrowDropleft className="text-4xl cursor-pointer text-zinc-500 hover:text-zinc-700" />
-                <IoMdArrowDropright className="text-4xl cursor-pointer text-zinc-500 hover:text-zinc-700" />
+
+            {/* Arrow controls */}
+            <div className="flex items-center justify-center gap-8 mt-4">
+                <button
+                    onClick={() =>
+                        setActiveIndex(
+                            (prev) =>
+                                (prev - 1 + currentProduct.image.length) %
+                                currentProduct.image.length
+                        )
+                    }
+                    className="p-2 rounded-full hover:bg-zinc-100 active:bg-zinc-200 transition-colors"
+                >
+                    <IoMdArrowDropleft className="text-3xl text-zinc-600" />
+                </button>
+
+                <span className="text-sm font-medium text-zinc-500">
+                    {activeIndex + 1} / {currentProduct.image.length}
+                </span>
+
+                <button
+                    onClick={() =>
+                        setActiveIndex(
+                            (prev) => (prev + 1) % currentProduct.image.length
+                        )
+                    }
+                    className="p-2 rounded-full hover:bg-zinc-100 active:bg-zinc-200 transition-colors"
+                >
+                    <IoMdArrowDropright className="text-3xl text-zinc-600" />
+                </button>
             </div>
         </div>
     );

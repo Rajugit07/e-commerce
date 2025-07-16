@@ -5,7 +5,7 @@ const initialState = {
     filteredProduct: [],
     selectedProduct: JSON.parse(localStorage.getItem("selectedProduct")) || [],
     wishlistProduct: JSON.parse(localStorage.getItem("wishlistProduct")) || [],
-    currProduct: JSON.parse(localStorage.getItem("selectedProduct")) || [],
+    currProduct: JSON.parse(localStorage.getItem("currProduct")) || null,
     loading: false,
 };
 
@@ -35,6 +35,7 @@ const productSlice = createSlice({
 
             // Always set current product
             state.currProduct = action.payload;
+            localStorage.setItem("currProduct", JSON.stringify(action.payload));
 
             if (!isExist) {
                 existingProducts.push(action.payload);
@@ -122,5 +123,4 @@ export const {
     clearSelectedProduct,
     addToWishlist,
     clearWishlist,
-    setSendProduct,
 } = productSlice.actions;

@@ -8,7 +8,7 @@ import {
 } from "../../../store/Reducers/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-const ProductDescription = ({ items }) => {
+const ProductDescription = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,66 +24,78 @@ const ProductDescription = ({ items }) => {
         navigate(`/wishlist`);
     };
 
-    const lastProduct = items[items.length - 1];
-    // console.log();
-
-    const currentProduct = useSelector((state) => state.productReducer.currentProduct);
-    console.log(currentProduct);
+    const currentProduct = useSelector(
+        (state) => state.productReducer.currProduct
+    );
 
     return (
-        <div className=" w-full max-w-3xl mx-auto px-6 max-sm:px-1">
-            <div className="space-y-5 max-sm:space-y-3">
+        <div className="w-full max-w-3xl mx-auto px-4 sm:px-6">
+            <div className="space-y-4 sm:space-y-5">
                 {/* Title */}
-                <h1 className="text-3xl font-bold tracking-tight text-zinc-900 max-sm:text-sm uppercase">
-                    {lastProduct.productType}
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 uppercase">
+                    {currentProduct.productType}
                 </h1>
 
                 {/* Description */}
-                <p className="text-base text-zinc-600 max-sm:text-sm truncate">
-                    {lastProduct.description}
+                <p className="text-sm sm:text-base text-zinc-600 line-clamp-2">
+                    {currentProduct.description}
                 </p>
 
                 {/* Price */}
-                <div className="space-y-1">
-                    <p className="text-2xl font-bold text-zinc-800 max-sm:text-sm">
-                        RS:{lastProduct.price}
+                <div>
+                    <p className="text-xl sm:text-2xl font-bold text-zinc-800">
+                        RS:{currentProduct.price}
                     </p>
-                    <p className="text-[13px] text-[#03a685] font-medium">
+                    <p className="text-xs sm:text-[13px] text-emerald-600 font-medium">
                         inclusive of all taxes
                     </p>
                 </div>
 
-                {/* Size and Qty */}
-                <div className="flex flex-col sm:flex-row gap-6 mt-4 max-sm:mt-2">
+                {/* Size & Qty */}
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     <div className="flex-1">
                         <SizeSelector />
                     </div>
                     {/* <div className="flex-1">
-                        <QtySelector />
-                    </div> */}
+                <       QtySelector />
+                     </div> */}
                 </div>
 
-                {/* Buttons */}
-                <div className="mt-6">
-                    {/* Mobile fixed buttons */}
-                    <div className="sm:hidden fixed bottom-0 left-0 w-full z-50 bg-white px-4 py-2 flex gap-4 shadow-lg">
-                        <Button />
-                    </div>
-
-                    {/* Desktop/Tablet inline buttons */}
-                    <div className="hidden sm:flex gap-4">
-                        {/* <Button /> */}
+                {/* ---- Buttons ---- */}
+                <div className="pt-2 pb-20 sm:pb-0">
+                    {/* Mobile fixed bar */}
+                    <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white/80 backdrop-blur-lg border-t border-zinc-200 px-4 py-3 flex gap-3">
                         <button
-                            onClick={(e) => handleAddToWishlist(e, lastProduct)}
-                            className="border border-zinc-200 px-4 py-1 rounded cursor-pointer hover:border-zinc-600 transition-border duration-200"
+                            onClick={(e) =>
+                                handleAddToWishlist(e, currentProduct)
+                            }
+                            className="flex-1 border border-zinc-300 rounded-md py-2.5 text-sm font-semibold text-zinc-700 active:bg-zinc-100"
                         >
-                            wishlist
+                            Wishlist
                         </button>
                         <button
-                            onClick={() => handleShopNow(lastProduct)}
-                            className="border border-zinc-200 px-4 py-1 rounded cursor-pointer hover:border-zinc-600 transition-border duration-200"
+                            onClick={() => handleShopNow(currentProduct)}
+                            className="flex-1 bg-zinc-900 text-white rounded-md py-2.5 text-sm font-semibold active:bg-zinc-700"
                         >
-                            buy Now
+                            Buy Now
+                        </button>
+                    </div>
+
+                    {/* Desktop / Tablet inline buttons */}
+                    <div className="hidden sm:flex gap-4">
+                        <button
+                            onClick={(e) =>
+                                handleAddToWishlist(e, currentProduct)
+                            }
+                            className="border border-zinc-300 px-5 py-2 rounded-md text-sm font-semibold text-zinc-700 hover:border-zinc-400 transition"
+                        >
+                            Wishlist
+                        </button>
+                        <button
+                            onClick={() => handleShopNow(currentProduct)}
+                            className="bg-zinc-900 text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-zinc-700 transition"
+                        >
+                            Buy Now
                         </button>
                     </div>
                 </div>
