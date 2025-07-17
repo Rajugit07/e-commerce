@@ -6,7 +6,7 @@ const initialState = {
     selectedProduct: JSON.parse(localStorage.getItem("selectedProduct")) || [],
     wishlistProduct: JSON.parse(localStorage.getItem("wishlistProduct")) || [],
     currProduct: JSON.parse(localStorage.getItem("currProduct")) || null,
-    productDescription: JSON.parse(localStorage.getItem("currProduct")) || [],
+    productDescription: JSON.parse(localStorage.getItem("productDescription")) || [],
     loading: false,
 };
 
@@ -50,9 +50,15 @@ const productSlice = createSlice({
                 state.selectedProduct = existingProducts;
             }
         },
-        openProductDescription:(state,action) => {
+        openProductDescription: (state, action) => {
             state.productDescription = action.payload;
-            localStorage.setItem("productDescription",JSON.stringify(action.payload))
+            localStorage.setItem(
+                "productDescription",
+                JSON.stringify(action.payload)
+            );
+             // Always set current product
+             state.currProduct = action.payload;
+             localStorage.setItem("currProduct", JSON.stringify(action.payload));
         },
         clearSelectedProduct: (state, action) => {
             const existingProducts =

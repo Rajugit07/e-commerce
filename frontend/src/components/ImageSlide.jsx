@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ProductCard = ({ item, handleShopNow, handleAddToWishlist }) => {
+const ImageSlide = ({ item, handleShopNow, handleAddToWishlist }) => {
     const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
     const handlePrev = () => {
@@ -69,4 +69,4 @@ const ProductCard = ({ item, handleShopNow, handleAddToWishlist }) => {
     );
 };
 
-export default ProductCard;
+export default ImageSlide;
