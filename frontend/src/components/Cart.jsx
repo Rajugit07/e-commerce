@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addToWishlist, setSelectedProduct } from "../store/Reducers/productsReducer";
+import { addToWishlist,openProductDescription } from "../store/Reducers/productsReducer";
 import ImageSlide from "../components/ImageSlide";
 
 const Cart = ({ items }) => {
@@ -10,8 +10,9 @@ const Cart = ({ items }) => {
 
     //add to cart
     const handleShopNow = (item) => {
-        dispatch(setSelectedProduct(item));
+        dispatch(openProductDescription(item));
         navigate(`/product/description`);
+        console.log(openProductDescription(item));
     };
 
     //wishlist

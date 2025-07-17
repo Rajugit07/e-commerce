@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -7,22 +7,22 @@ const ProductImage = () => {
     const currentProduct = useSelector(
         (state) => state.productReducer.currProduct
     );
-    const [activeIndex, setActiveIndex] = React.useState(0); // Initialize activeIndex this.state.
+    const [activeIndex, setActiveIndex] = useState(0); // Initialize activeIndex this.state.
 
     return (
-        <div className="w- h-[500px] md:w-1/2 flex flex-col items-center">
+        <div className="h-[500px] md:w-1/2 flex flex-col items-center">
             {/* Main image */}
-            <div className="w-full aspect-square relative rounded-2xl overflow-hidden shadow-xl flex">
+            <div className="w-full aspect-square relative rounded-2xl overflow-hidden flex">
                 {/* Left thumbnail strip */}
                 <div className="w-[25%] h-full bg-zinc-50 p-2 flex flex-col gap-2 overflow-y-auto">
                     {currentProduct.image.map((img, idx) => (
                         <button
                             key={img.url}
                             onClick={() => setActiveIndex(idx)}
-                            className={`w-full aspect-square rounded-md overflow-hidden border-2 transition-all duration-200
+                            className={`w-full aspect-square rounded-md overflow-hidden  transition-all duration-200
                   ${
                       activeIndex === idx
-                          ? "border-indigo-500 ring-2 ring-indigo-300"
+                          ? " ring-1 ring-zinc-700"
                           : "border-zinc-200 hover:border-zinc-400"
                   }`}
                         >
@@ -40,7 +40,7 @@ const ProductImage = () => {
                     <img
                         src={currentProduct.image[activeIndex].url}
                         alt={currentProduct?.title || "product"}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                     />
                 </div>
             </div>

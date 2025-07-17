@@ -52,7 +52,6 @@ export default function CategoryScroll({
 
         // Final URL
         const url = `/${categorySlug}/${subcategorySlug}/${firstProductItem}`;
-        console.log("Navigating to:", url);
         navigate(url);
     };
 

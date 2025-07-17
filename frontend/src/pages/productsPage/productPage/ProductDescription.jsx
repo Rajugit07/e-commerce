@@ -1,7 +1,7 @@
 import React from "react";
 import SizeSelector from "../../../components/SizeSelector";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+// import Button from "./Button";
 import {
     addToWishlist,
     setSelectedProduct,
@@ -29,7 +29,7 @@ const ProductDescription = () => {
     );
 
     return (
-        <div className="w-full max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="w-full max-w-3xl mx-auto px-4 sm:px-0">
             <div className="space-y-4 sm:space-y-5">
                 {/* Title */}
                 <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 uppercase">
