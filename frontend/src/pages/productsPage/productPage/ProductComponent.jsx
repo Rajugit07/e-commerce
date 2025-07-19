@@ -8,10 +8,6 @@ const ProductComponent = () => {
     const selectedProduct = useSelector(
         (state) => state.productReducer.selectedProduct
     );
-    //   console.log(selectedProduct);
-
-    //   const currentProduct = useSelector((state)=> state.productReducer.currProduct);
-    //   console.log(currentProduct);
 
     return (
         <div className="w-full min-h-screen">

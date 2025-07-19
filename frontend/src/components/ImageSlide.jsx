@@ -1,72 +1,102 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const ImageSlide = ({ item, handleShopNow, handleAddToWishlist }) => {
+export default function ImageSlide({
+    item,
+    handleShopNow,
+    handleAddToWishlist,
+}) {
     const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
-    const handlePrev = () => {
-        setCurrentImgIndex((prevIndex) =>
-            prevIndex === 0 ? item.image.length - 1 : prevIndex - 1
-        );
-    };
-
-    const handleNext = () => {
-        setCurrentImgIndex((prevIndex) =>
-            prevIndex === item.image.length - 1 ? 0 : prevIndex + 1
-        );
-    };
+    const handlePrev = () =>
+        setCurrentImgIndex((p) => (p === 0 ? item.image.length - 1 : p - 1));
+    const handleNext = () =>
+        setCurrentImgIndex((p) => (p === item.image.length - 1 ? 0 : p + 1));
 
     return (
-        <div
-            className="min-w-[230px] max-w-[250px] h-[420px] flex flex-col items-center border border-zinc-200 p-2 transition-transform rounded-md cursor-pointer"
+        <article
+            className="
+        flex flex-col rounded-md border border-zinc-200 bg-white
+        transition-transform duration-200 hover:-translate-y-1 cursor-pointer max-w-[280px] min-w-[220px] flex-[1_1_200px]
+      "
             onClick={() => handleShopNow(item)}
         >
-            <div className="relative w-full h-64">
+            {/* IMAGE */}
+            <div className="relative w-full aspect-[4/3] group">
                 <img
                     src={item.image[currentImgIndex]?.url}
                     alt={item.title}
-                    className="h-64 w-full rounded-md object-cover"
+                    className="w-full h-full rounded-t-md object-cover"
                 />
+
                 {item.image.length > 1 && (
                     <>
                         <button
-                            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full px-2 py-1 cursor-pointer"
+                            aria-label="Previous"
+                            className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/70
+                         rounded-full p-1 opacity-0 group-hover:opacity-100 transition cursor-pointer"
                             onClick={(e) => {
-                                e.stopPropagation(); // Prevent triggering card click
+                                e.stopPropagation();
                                 handlePrev();
                             }}
                         >
-                            &lt;
+                            &larr;
                         </button>
                         <button
-                            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full px-2 py-1 cursor-pointer"
+                            aria-label="Next"
+                            className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/70
+                         rounded-full p-1 opacity-0 group-hover:opacity-100 transition cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleNext();
                             }}
                         >
-                            &gt;
+                            &rarr;
                         </button>
+
+                        {/* dots */}
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                            {item.image.map((_, i) => (
+                                <div
+                                    key={i}
+                                    className={`w-1.5 h-1.5 rounded-full transition-colors
+                              ${
+                                  i === currentImgIndex
+                                      ? "bg-black"
+                                      : "bg-white/60"
+                              }`}
+                                />
+                            ))}
+                        </div>
                     </>
                 )}
             </div>
-            <h2 className="text-lg font-semibold text-gray-800 mt-3 text-center capitalize">
-                {item.title}
-            </h2>
-            <p className="text-sm text-gray-500 mt-1 text-center truncate w-full overflow-hidden whitespace-nowrap">
-                {item.description}
-            </p>
-            <h3 className="mt-3">RS: {item.price}</h3>
-            <button
-                className="mt-3 px-4 py-1 text-black border border-zinc-300 rounded-md cursor-pointer"
-                onClick={(e) => {
-                    e.stopPropagation(); // Prevent card click on button click
-                    handleAddToWishlist(e, item);
-                }}
-            >
-                Add to Wishlist
-            </button>
-        </div>
-    );
-};
 
-export default ImageSlide;
+            {/* CONTENT */}
+            <div className="flex-1 flex flex-col px-3 py-2.5">
+                <h2 className="text-base font-semibold text-gray-800 capitalize truncate">
+                    {item.title}
+                </h2>
+
+                <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                    {item.description}
+                </p>
+
+                <div className="mt-auto pt-3 space-y-2">
+                    <p className="text-sm font-medium">Rs. {item.price}</p>
+
+                    <button
+                        type="button"
+                        className="w-full py-1.5 text-sm border border-zinc-300 rounded-md
+                       hover:bg-zinc-100 transition-colors"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToWishlist(e, item);
+                        }}
+                    >
+                        Add to Wishlist
+                    </button>
+                </div>
+            </div>
+        </article>
+    );
+}

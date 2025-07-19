@@ -16,26 +16,28 @@ const AddToCartProduct = () => {
     };
 
     return (
-        <div className="w-full bg-white p-2 border-b border-zinc-200 relative rounded-md shadow">
+        <div className="w-full bg-white px-2 relative rounded-md">
             {selectedProducts.length === 0 ? (
-                <p>No products in cart.</p>
+                <p className="text-center text-zinc-500">
+                    No products in cart.
+                </p>
             ) : (
                 selectedProducts.map((product, index) => (
                     <div
                         key={index}
-                        className="sm:flex sm:items-start sm:gap-8 bg-white mb-4"
+                        className="sm:flex sm:items-start sm:gap-8 bg-white mb-4 border border-zinc-200 rounded-md p-2 shadow- flex gap-4"
                     >
-                        {/* left image */}
-                        <div className="w-auto h-auto">
+                        {/* Left: Image */}
+                        <div className="w-24 h-34 sm:w-52 sm:h-62 overflow-hidden rounded-xl relative">
                             <img
                                 src={product.image[0]?.url}
                                 alt="product"
-                                className="full h-full object-cover rounded-xl"
+                                className="absolute inset-0 w-full h-full object-cover object-center"
                             />
                         </div>
 
-                        {/* right: Product Details */}
-                        <div className="sm:w-8/10 flex flex-col gap-3 max-sm:gap-2">
+                        {/* Right: Product Details */}
+                        <div className="flex-1 flex flex-col gap-3 max-sm:gap-2">
                             {/* Product Title */}
                             <p className="text-md font-semibold text-zinc-700 max-sm:text-[13px]">
                                 {product.description}
@@ -47,41 +49,28 @@ const AddToCartProduct = () => {
                             {/* Quantity Selector */}
                             <QtySelector />
 
-                            {/* Price (Desktop) */}
-                            <div className="hidden sm:flex sm:flex-col">
+                            {/* Price */}
+                            <div className="flex flex-col">
                                 <p className="font-semibold text-zinc-700">
                                     Price:{" "}
                                     <span className="text-[#278e2f]">
                                         {product.price}
                                     </span>
                                 </p>
-                                <p className="font-semibold text-zinc-500 text-sm">
-                                    MRP incl. of all taxes
-                                </p>
-                            </div>
-
-                            {/* Price (Mobile) */}
-                            <div className="sm:hidden mt-3">
-                                <p className="text-[13px] font-semibold text-zinc-700">
-                                    Price:{" "}
-                                    <span className="text-[#278e2f]">
-                                        {product.price}
-                                    </span>
-                                </p>
-                                <p className="text-[11px] text-zinc-600">
+                                <p className="font-semibold text-zinc-500 text-sm max-sm:text-[11px]">
                                     MRP incl. of all taxes
                                 </p>
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex justify-start gap-4 max-sm:mt-3 mt-1">
+                            <div className="flex justify-start gap-2 max-sm:gap-1 mt-1">
                                 <button
                                     onClick={() => handleProductRemove(product)}
-                                    className="px-4 py-2 border border-zinc-300 uppercase rounded-md text-center text-sm max-sm:text-[11px] max-sm:px-2 bg-zinc-900 text-white cursor-pointer"
+                                    className="px-3 py-1.5 border border-zinc-300 uppercase rounded-md text-xs max-sm:text-[10px] bg-zinc-900 text-white cursor-pointer"
                                 >
                                     Remove
                                 </button>
-                                <button className="px-4 py-2 border border-zinc-300 uppercase rounded-md bg-[#ff3f6c] text-white text-sm max-sm:text-[11px] max-sm:px-2 cursor-pointer">
+                                <button className="px-3 py-1.5 border border-zinc-300 uppercase rounded-md bg-[#ff3f6c] text-white text-xs max-sm:text-[10px] cursor-pointer">
                                     Move to Wishlist
                                 </button>
                             </div>
