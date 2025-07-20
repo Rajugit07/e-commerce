@@ -29,75 +29,62 @@ const ProductDescription = () => {
     );
 
     return (
-        <div className="w-full max-w-3xl mx-auto px-4 sm:px-0">
-            <div className="space-y-4 sm:space-y-5">
-                {/* Title */}
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 uppercase">
-                    {currentProduct.productType}
-                </h1>
+        <div className="w-full max-w-2xl mx-auto sm:px-4 h-auto space-y-4 sm:space-y-6">
+            {/* Product Title */}
+            <h1 className="text-xl sm:text-3xl font-bold uppercase text-zinc-900 tracking-tight">
+                {currentProduct.productType}
+            </h1>
 
-                {/* Description */}
-                <p className="text-sm sm:text-base text-zinc-600 line-clamp-2">
-                    {currentProduct.description}
+            {/* Description */}
+            <p className="text-sm sm:text-base text-zinc-600 line-clamp-2">
+                {currentProduct.description}
+            </p>
+
+            {/* Price */}
+            <div>
+                <p className="text-base sm:text-2xl font-semibold text-zinc-800">
+                    Rs: {currentProduct.price}
                 </p>
+                <p className="text-xs text-emerald-600 font-medium">
+                    inclusive of all taxes
+                </p>
+            </div>
 
-                {/* Price */}
-                <div>
-                    <p className="text-xl sm:text-2xl font-bold text-zinc-800">
-                        RS:{currentProduct.price}
-                    </p>
-                    <p className="text-xs sm:text-[13px] text-emerald-600 font-medium">
-                        inclusive of all taxes
-                    </p>
+            {/* Size Selector */}
+            <SizeSelector />
+
+            {/* Buttons */}
+            <div className="pt-4 pb-16 sm:pb-4">
+                {/* Mobile Sticky Bar */}
+                <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white shadow border-t border-zinc-200 px-4 py-2 flex gap-2">
+                    <button
+                        onClick={(e) => handleAddToWishlist(e, currentProduct)}
+                        className="flex-1 border border-zinc-300 rounded-md py-2 text-sm font-semibold text-zinc-700 cursor-pointer"
+                    >
+                        Wishlist
+                    </button>
+                    <button
+                        onClick={() => handleShopNow(currentProduct)}
+                        className="flex-1 bg-zinc-900 text-white rounded-md py-2 text-sm font-semibold cursor-pointer"
+                    >
+                        Buy Now
+                    </button>
                 </div>
 
-                {/* Size & Qty */}
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                    <div className="flex-1">
-                        <SizeSelector />
-                    </div>
-                    {/* <div className="flex-1">
-                <       QtySelector />
-                     </div> */}
-                </div>
-
-                {/* ---- Buttons ---- */}
-                <div className="pt-2 pb-20 sm:pb-0">
-                    {/* Mobile fixed bar */}
-                    <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white/80 backdrop-blur-lg border-t border-zinc-200 px-4 py-3 flex gap-3">
-                        <button
-                            onClick={(e) =>
-                                handleAddToWishlist(e, currentProduct)
-                            }
-                            className="flex-1 border border-zinc-300 rounded-md py-2.5 text-sm font-semibold text-zinc-700 active:bg-zinc-100"
-                        >
-                            Wishlist
-                        </button>
-                        <button
-                            onClick={() => handleShopNow(currentProduct)}
-                            className="flex-1 bg-zinc-900 text-white rounded-md py-2.5 text-sm font-semibold active:bg-zinc-700"
-                        >
-                            Buy Now
-                        </button>
-                    </div>
-
-                    {/* Desktop / Tablet inline buttons */}
-                    <div className="hidden sm:flex gap-4">
-                        <button
-                            onClick={(e) =>
-                                handleAddToWishlist(e, currentProduct)
-                            }
-                            className="border border-zinc-300 px-5 py-2 rounded-md text-sm font-semibold text-zinc-700 hover:border-zinc-400 transition"
-                        >
-                            Wishlist
-                        </button>
-                        <button
-                            onClick={() => handleShopNow(currentProduct)}
-                            className="bg-zinc-900 text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-zinc-700 transition"
-                        >
-                            Buy Now
-                        </button>
-                    </div>
+                {/* Desktop Buttons */}
+                <div className="hidden sm:flex gap-4">
+                    <button
+                        onClick={(e) => handleAddToWishlist(e, currentProduct)}
+                        className="border border-zinc-300 px-5 py-2 rounded-md text-sm font-semibold text-zinc-700 hover:border-zinc-400"
+                    >
+                        Wishlist
+                    </button>
+                    <button
+                        onClick={() => handleShopNow(currentProduct)}
+                        className="bg-zinc-900 text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-zinc-700"
+                    >
+                        Buy Now
+                    </button>
                 </div>
             </div>
         </div>

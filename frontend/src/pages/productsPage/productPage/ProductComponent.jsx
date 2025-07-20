@@ -10,20 +10,21 @@ const ProductComponent = () => {
     );
 
     return (
-        <div className="w-full min-h-screen">
+        <div className="w-full min-h-screen bg-white">
             {/* Navbar */}
-            <div className=" bg-white">
-                <Navbar />
+            <Navbar />
 
-                {/* Main Section */}
-                <div className="flex flex-row md:flex-col items-start justify-between py-8 px-6 md:py-12 md:px-4 w-full gap-10 max-sm:flex-col ">
-                    <section className="w-5/12 md:w-1/2 max-sm:w-full flex-shrink-0 flex justify-center bg-white mb-8 md:mb-0">
-                        <ProductImage items={selectedProduct} />
-                    </section>
-                    <section className="w-7/12 md:w-1/2 max-sm:w-full flex flex-col justify-center">
-                        <ProductDescription items={selectedProduct} />
-                    </section>
-                </div>
+            {/* Main Section */}
+            <div className="flex flex-row max-sm:flex-col md:flex-row items-start py-6 px-4 sm:py-8 sm:px-6 w-full gap-6">
+                {/* Product Image */}
+                <section className="w-[35%] max-sm:w-full md:w-1/2 flex justify-center mb-6 md:mb-0 max-sm:h-96">
+                    <ProductImage items={selectedProduct} />
+                </section>
+
+                {/* Product Description */}
+                <section className="w-[45%] max-sm:w-full md:w-1/2">
+                    <ProductDescription items={selectedProduct} />
+                </section>
             </div>
         </div>
     );
