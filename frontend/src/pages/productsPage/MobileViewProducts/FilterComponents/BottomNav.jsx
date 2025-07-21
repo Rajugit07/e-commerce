@@ -1,11 +1,17 @@
 import React from "react";
 
-const BottomNav = ({onClose}) => {
-
+const BottomNav = ({ onClose }) => {
     return (
-        <div className="w-full h-14 bg-white flex items-center justify-between border-t border-zinc-200 px-4">
-            <button className="uppercase text-md semibold text-zinc-700" onClick={onClose}>Close</button>
-            <button className="uppercase text-md semibold text-zinc-700">Apply</button>
+        <div className="w-full h-14 bg-white flex items-center justify-around border-t border-zinc-200 px-4">
+            <button className="uppercase text-xl semibold text-zinc-700 cursor-pointer">
+                Clear
+            </button>
+            <button
+                onClick={onClose}
+                className="uppercase text-xl semibold text-zinc-700 cursor-pointer"
+            >
+                Apply
+            </button>
         </div>
     );
 };

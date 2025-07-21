@@ -1,105 +1,38 @@
-// import React from "react";
-// import TopNavMob from "./TopNavMob";
-// import BottomNav from "./BottomNav";
-// import Category from "../FilterAllCategoryComp/Category";
-// import CategoryOption from "../FilterAllCategoryComp/CategoryOption";
-
-// const FilterComponent = () => {
-//     return (
-//         <div className="sm:hidden fixed inset-0 z-[9999] bg-white flex flex-col">
-//             {/* TopNav */}
-//             <div className="h-14">
-//                 <TopNavMob />
-//             </div>
-
-//             {/* Middle Content (flex-grow fills the space between top and bottom navs) */}
-//             <div className="flex-grow flex w-full h-full">
-//                 {/* Left and Right Side by Side */}
-
-//                 {/* left */}
-//                 <div className="w-2/5 bg-gray-100 ">
-//                     <div className="w-full h-10">
-//                         <Category />
-//                     </div>
-//                     <div className="w-full h-10">
-//                         <Category />
-//                     </div>
-//                     <div className="w-full h-10">
-//                         {" "}
-//                         <Category />
-//                     </div>
-//                 </div>
-//                 {/* right */}
-//                 <div className="w-3/5">
-//                     <div className="w-full h-10">
-//                         <CategoryOption/>
-//                     </div>
-//                     <div className="w-full h-10"></div>
-//                     <div className="w-full h-10"></div>
-//                 </div>
-//             </div>
-
-//             {/* BottomNav */}
-//             <div className="h-14">
-//                 <BottomNav />
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default FilterComponent;
-
-import React, { useState } from "react";
+import React from "react";
 import TopNavMob from "./TopNavMob";
 import BottomNav from "./BottomNav";
-import Category from "../FilterAllCategoryComp/Category";
-import CategoryOption from "../FilterAllCategoryComp/CategoryOption";
+import PriceDropDown from "../../FilterDropDown/PriceDropDown";
+import ColorDropDown from "../../FilterDropDown/ColorDropDown ";
+import SizeDropDown from "../../FilterDropDown/SizeDropDown";
 
-const FilterComponent = () => {
-    const [openCategoryIndex, setOpenCategoryIndex] = useState(null);
-
-    const handleOpenCategory = (idx) => {
-        setOpenCategoryIndex(idx);
-    };
-
-    const handleCloseCategory = () => {
-        setOpenCategoryIndex(null);
-    };
-
+const FilterComponent = ({ onClose }) => {
     return (
-        <div className="sm:hidden fixed inset-0 z-[9999] bg-white flex flex-col">
-            <div className="h-14">
+        <div className="sm:hidden w-full fixed inset-0 z-[9999] bg-white flex flex-col">
+            {/* Top Navigation - Fixed Height */}
+            <nav className="flex-shrink-0 h-14 border-b border-gray-200">
                 <TopNavMob />
-            </div>
-            <div className="flex-grow flex w-full h-full">
-                <div className="w-2/5 bg-gray-100 ">
-                    <div className="w-full h-10">
-                        <Category
-                            isOpen={openCategoryIndex === 0}
-                            onOpen={() => handleOpenCategory(0)}
-                        />
-                    </div>
-                    <div className="w-full h-10">
-                        <Category
-                            isOpen={openCategoryIndex === 1}
-                            onOpen={() => handleOpenCategory(1)}
-                        />
-                    </div>
-                    <div className="w-full h-10">
-                        <Category
-                            isOpen={openCategoryIndex === 2}
-                            onOpen={() => handleOpenCategory(2)}
-                        />
+            </nav>
+
+            {/* Main Content Area - Scrollable */}
+            <div className="flex-1 overflow-y-auto bg-gray-50">
+                <div className="w-full h-full">
+                    <div className=" divide-gray-200">
+                        <div className="bg-white">
+                            <PriceDropDown />
+                        </div>
+                        <div className="bg-white">
+                            <SizeDropDown />
+                        </div>
+                        <div className="bg-white">
+                            <ColorDropDown />
+                        </div>
                     </div>
                 </div>
-                <div className="w-3/5">
-                    {openCategoryIndex !== null && (
-                        <CategoryOption onClose={handleCloseCategory} />
-                    )}
-                </div>
             </div>
-            <div className="h-14">
-                <BottomNav />
+
+            {/* Bottom Navigation - Fixed Height */}
+            <div className="flex-shrink-0 h-14 border-t border-gray-200 bg-white">
+                <BottomNav onClose={onClose} />
             </div>
         </div>
     );

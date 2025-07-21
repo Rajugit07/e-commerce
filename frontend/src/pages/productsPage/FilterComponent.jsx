@@ -19,7 +19,6 @@ const FilterComponent = () => {
 
     return (
         <div className="h-full max-sm:hidden ">
-            
             {/* navigation stage */}
             <section className="text-sm text-gray-600">
                 {breadcrumb.map((crumb, index) => (

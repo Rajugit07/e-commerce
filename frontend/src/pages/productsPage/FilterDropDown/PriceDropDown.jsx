@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPriceFilter } from "../../../store/Reducers/productFilterReducer";
 
@@ -6,13 +6,13 @@ const priceFilters = [
     { label: "All Prices", value: "all" },
     { label: "Under ₹300", value: 300 },
     { label: "Under ₹600", value: 600 },
-    { label: "Over ₹1000", value:  1000 },
+    { label: "Over ₹1000", value: 1000 },
 ];
 
 const PriceDropDown = () => {
-
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
+    const dropdownRef = useRef(null);
 
     const selectedFilter = useSelector(
         (state) => state.productFilterReducer.selectedPrice
@@ -27,33 +27,89 @@ const PriceDropDown = () => {
         setOpen(false);
     };
 
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div className="relative inline-block w-full text-left max-w-md mx-auto mt-4 p-6 bg-white rounded shadow">
-            <h1 className="text-xl font-bold mb-4">Product Prices</h1>
+        <div className="w-full p-4 sm:p-2 bg-white border-b border-gray-100 last:border-b-0">
+            {/* Dropdown Container */}
+            <div className="relative" ref={dropdownRef}>
+                {/* Trigger Button */}
+                <button
+                    onClick={() => setOpen(!open)}
+                    className={`
+                        relative w-full flex items-center justify-between
+                        px-4 py-3 text-left
+                        bg-gray-50 border border-gray-200 rounded-lg
+                        text-sm font-medium text-gray-700
+                        hover:bg-gray-100 hover:border-gray-300
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                        transition-all duration-200
+                        ${open ? 'ring-2 ring-blue-500 border-blue-500 bg-blue-50' : ''}
+                    `}
+                >
+                    <span className="block truncate font-medium">
+                        {selectedLabel}
+                    </span>
 
-            <button
-                onClick={() => setOpen(!open)}
-                className="w-full border border-zinc-200 rounded px-4 py-2 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none"
-            >
-                {selectedLabel}
-                <span className="float-right ml-2">&#9662;</span>
-            </button>
+                    <svg
+                        className={`
+                            h-5 w-5 text-gray-400 transition-transform duration-200
+                            ${open ? 'transform rotate-180 text-blue-500' : ''}
+                        `}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
 
-            {open && (
-                <div className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                    <ul className="py-1 text-sm text-gray-700 max-h-60 overflow-y-auto">
-                        {priceFilters.map((filter) => (
-                            <li
-                                key={filter.value}
-                                onClick={() => handleSelect(filter.value)}
-                                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-                            >
-                                {filter.label}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+                {/* Dropdown Menu */}
+                {open && (
+                    <div className="absolute z-50 mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 transform transition-all duration-200">
+                        <div className="py-1 max-h-60 overflow-y-auto">
+                            {priceFilters.map((filter) => (
+                                <button
+                                    key={filter.value}
+                                    onClick={() => handleSelect(filter.value)}
+                                    className={`
+                                        w-full flex items-center justify-between
+                                        px-4 py-3 text-left text-sm
+                                        hover:bg-gray-50 focus:bg-gray-50
+                                        focus:outline-none transition-colors duration-150
+                                        ${selectedFilter === filter.value
+                                            ? 'bg-blue-50 text-blue-700'
+                                            : 'text-gray-700'
+                                        }
+                                    `}
+                                >
+                                    <span className="font-medium">
+                                        {filter.label}
+                                    </span>
+
+                                    {selectedFilter === filter.value && (
+                                        <svg className="h-4 w-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                        </svg>
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
