@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
     return (
         <div className="w-full h-screen px-5 mb-4 max-sm:px-2 flex items-center justify-center bg-zinc-50 ">
-            <div className="relative w-full h-[90vh] max-w-8xl bg-white border border-zinc-100 shadow rounded-2xl overflow-hidden max-sm:mt-5">
+            <div className="relative w-full h-[90vh] max-w-8xl bg-white border border-zinc-100 shadow rounded-2xl overflow-hidden">
                 {/* Hero Image */}
                 <img
                     src={banner}

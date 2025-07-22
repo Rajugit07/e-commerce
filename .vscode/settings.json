@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "Bottomwear"
-    ]
+    ],
+    "postman.settings.dotenv-detection-notification-visibility": false
 }

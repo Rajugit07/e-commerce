@@ -25,18 +25,20 @@ const Cart = ({ items }) => {
     };
 
     return (
-        <section className="w-full overflow-x-hidden">
-            <div className="flex flex-wrap gap-4 p-4">
-                {items.map((item, idx) => (
-                    <ImageSlide
-                        key={item.productId || idx}
-                        item={item}
-                        handleShopNow={handleShopNow}
-                        handleAddToWishlist={handleAddToWishlist}
-                    />
-                ))}
-            </div>
-        </section>
+        <>
+            <section className="w-full overflow-x-hidden">
+                <div className="flex flex-wrap gap-4 p-4">
+                    {items.map((item, idx) => (
+                        <ImageSlide
+                            key={item.productId || idx}
+                            item={item}
+                            handleShopNow={handleShopNow}
+                            handleAddToWishlist={handleAddToWishlist}
+                        />
+                    ))}
+                </div>
+            </section>
+        </>
     );
 };
 

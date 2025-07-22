@@ -24,6 +24,8 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isOpen3, setIsOpen3] = useState(false);
+    const [showMobileSearch, setShowMobileSearch] = useState(false);
+
     const toggleDropdown = () => {
         setIsOpen2(!isOpen2);
     };
@@ -203,58 +205,77 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* Hamburger Button */}
-            <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 flex items-center justify-between text-2xl sm:hidden sticky top-0 z-50">
-                <div className="flex items-center gap-3 ">
+            {/* Mobile Top Bar */}
+            <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 flex items-center justify-between sm:hidden sticky top-0 z-50">
+                {/* Left: Hamburger & Logo */}
+                <div className="flex items-center gap-3">
                     <button onClick={() => setIsOpen(!isOpen)}>
-                        {isOpen ? (
-                            <RiCloseLargeLine className="cursor-pointer" />
-                        ) : (
-                            <RxHamburgerMenu className="cursor-pointer" />
-                        )}
+                        {isOpen ? <RiCloseLargeLine /> : <RxHamburgerMenu />}
                     </button>
-                    <div className="flex items-center text-xl cursor-pointer text-center text-zinc-800">
-                        <Link to="/">Logo</Link>
-                    </div>
+                    {!showMobileSearch && (
+                        <div className="flex items-center text-xl cursor-pointer text-zinc-800">
+                            <Link to="/">Logo</Link>
+                        </div>
+                    )}
                 </div>
-                <div className="flex items-center gap-3 ">
-                    <div>
-                        <FaRegHeart className="text-zinc-800 cursor-pointer" />
-                    </div>
-                    <div>
-                        <FaShoppingBag className="text-zinc-800 cursor-pointer" />
-                    </div>
-                    <div>
-                        <VscAccount
-                            className="text-zinc-800 cursor-pointer"
-                            onClick={toggleDropdownMobile}
+
+                {/* Center: Search Icon or Expanded Search Input */}
+                <div className="flex-1 px-2 relative top-0.5 ">
+                    {!showMobileSearch ? (
+                        <IoIosSearch
+                            className="text-xl text-zinc-700 cursor-pointer"
+                            onClick={() => setShowMobileSearch(true)}
                         />
-                        {isOpen3 && (
-                            <div className="absolute top-15 mt-2 right-1">
-                                <ProfileDropDown />
-                            </div>
-                        )}
-                    </div>
+                    ) : (
+                        <div className="relative">
+                            <IoIosSearch className="absolute top-2.5 left-3 text-xl text-zinc-700" />
+                            <input
+                                type="text"
+                                value={query}
+                                onChange={handleSearch}
+                                placeholder="Search..."
+                                autoFocus
+                                className="w-full border border-zinc-300 pl-10 pr-10 py-2 rounded-full outline-none"
+                            />
+                            <RiCloseLargeLine
+                                className="absolute top-2.5 right-3 text-lg text-zinc-600 cursor-pointer"
+                                onClick={() => {
+                                    setShowMobileSearch(false);
+                                    setQuery("");
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
+
+                {/* Right: Wishlist, Bag, Account */}
+                {!showMobileSearch && (
+                    <div className="flex items-center gap-3">
+                        <Link to="/wishlist">
+                            <FaRegHeart className="text-zinc-800" />
+                        </Link>
+                        <Link to="/checkout/cart">
+                            <FaShoppingBag className="text-zinc-800" />
+                        </Link>
+                        <div className="relative">
+                            <VscAccount
+                                className="text-zinc-800"
+                                onClick={toggleDropdownMobile}
+                            />
+                            {isOpen3 && (
+                                <div className="absolute top-8 right-0">
+                                    <ProfileDropDown />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Dropdown menu for mobile */}
             <div className="px-6 mt-2 relative">
                 {isOpen && <MobileNavbar />}
             </div>
-
-            {/* Search */}
-            <div className="w-full p-1 sm:hidden relative">
-                <IoIosSearch className="absolute top-3 left-4 text-xl text-zinc-700" />
-                <input
-                    type="text"
-                    value={query}
-                    onChange={handleSearch}
-                    placeholder="search..."
-                    className="w-full border border-zinc-300 pl-10 px-3 py-2 rounded-full outline-none"
-                />
-            </div>
-
             {/* Toaster */}
             <Toaster />
         </div>

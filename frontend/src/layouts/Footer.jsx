@@ -2,199 +2,91 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <>
-            <footer className="bg-black text-white pt-16 pb-8 px-6 md:px-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-y-12 md:gap-x-8">
-                        <div className="md:col-span-4 lg:col-span-6 max-w-md">
-                            <h3 className="text-2xl font-normal mb-6 leading-tight">
-                                Keep up to date with our quarterly newsletter,
-                                "You've got mail."
-                            </h3>
-                            <div className="mt-4 space-y-4">
-                                <input
-                                    type="email"
-                                    placeholder="Enter email address..."
-                                    className="newsletter-input w-full px-4 py-3 bg-zinc-900 rounded text-white border border-zinc-800 focus:outline-none focus:border-zinc-700"
-                                />
-                                <button className="bg-white text-black px-6 py-2.5 rounded-full flex items-center font-medium hover:bg-gray-200 transition-colors">
-                                    Subscribe
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-4 w-4 ml-2"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="hidden md:block md:col-span-1 lg:hidden"></div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 col-span-1 md:col-span-7 lg:col-span-6 gap-y-12 sm:gap-x-8 md:gap-x-8 lg:gap-x-10">
-                            {/* <div>
-                                <h3 className="text-sm font-normal uppercase tracking-wide text-gray-400 mb-5">
-                                    Get in Touch
-                                </h3>
-                                <ul className="space-y-3">
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Start a Project
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Join the Team
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Press & Media
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Drop Us a Note
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div> */}
-                            <div>
-                                <h3 className="text-sm font-normal uppercase tracking-wide text-gray-400 mb-5">
-                                    See More
-                                </h3>
-                                <ul className="space-y-3">
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Work
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Services
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Latest
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            About
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Careers
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Contact
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="sm:col-span-2 md:col-span-1 lg:col-span-1">
-                                <h3 className="text-sm font-normal uppercase tracking-wide text-gray-400 mb-5">
-                                    Follow Us
-                                </h3>
-                                <ul className="space-y-3">
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Instagram
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            LinkedIn
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="text-sm hover:text-gray-300 transition-colors"
-                                        >
-                                            Twitter
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+        <footer className="bg-neutral-900 text-gray-300 px-6 md:px-10 pt-16 pb-8">
+            <div className="max-w-7xl mx-auto">
+                {/* Newsletter Signup */}
+                <div className="grid md:grid-cols-2 gap-8 border-b border-neutral-700 pb-12">
+                    <div>
+                        <h3 className="text-2xl font-semibold mb-4 text-white">
+                            Stay Updated
+                        </h3>
+                        <p className="text-sm text-gray-400">
+                            Join our newsletter to get the latest updates, offers, and more.
+                        </p>
                     </div>
-                    <div className="mt-16 pt-6 border-t border-zinc-800">
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div className="flex space-x-6 mb-4 md:mb-0">
-                                <a
-                                    href="#"
-                                    className="text-xs text-gray-300 hover:text-white transition-colors duration-200"
-                                >
-                                    Sitemap
-                                </a>
-                                <a
-                                    href="#"
-                                    className="text-xs text-gray-300 hover:text-white transition-colors duration-200"
-                                >
-                                    Privacy Policy
-                                </a>
-                            </div>
-                            <div className="text-xs text-white/80">
-                                © 2025, Site. All Rights Reserved.
-                            </div>
-                        </div>
+                    <form className="flex flex-col sm:flex-row gap-4 items-center">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="flex-1 px-4 py-3 bg-neutral-800 border border-neutral-700 rounded w-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <button
+                            type="submit"
+                            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded transition"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+                {/* Footer Links */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-12 text-sm">
+                    {/* Shop */}
+                    <div>
+                        <h4 className="text-white font-semibold mb-4">Shop</h4>
+                        <ul className="space-y-2">
+                            <li><a href="#" className="hover:text-white">Men</a></li>
+                            <li><a href="#" className="hover:text-white">Women</a></li>
+                            <li><a href="#" className="hover:text-white">Kids</a></li>
+                            <li><a href="#" className="hover:text-white">Sale</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Company */}
+                    <div>
+                        <h4 className="text-white font-semibold mb-4">Company</h4>
+                        <ul className="space-y-2">
+                            <li><a href="#" className="hover:text-white">About Us</a></li>
+                            <li><a href="#" className="hover:text-white">Careers</a></li>
+                            <li><a href="#" className="hover:text-white">Press</a></li>
+                            <li><a href="#" className="hover:text-white">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Help */}
+                    <div>
+                        <h4 className="text-white font-semibold mb-4">Help</h4>
+                        <ul className="space-y-2">
+                            <li><a href="#" className="hover:text-white">Shipping</a></li>
+                            <li><a href="#" className="hover:text-white">Returns</a></li>
+                            <li><a href="#" className="hover:text-white">Track Order</a></li>
+                            <li><a href="#" className="hover:text-white">FAQs</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Social & Contact */}
+                    <div>
+                        <h4 className="text-white font-semibold mb-4">Connect</h4>
+                        <ul className="space-y-2">
+                            <li><a href="#" className="hover:text-white">Instagram</a></li>
+                            <li><a href="#" className="hover:text-white">Twitter</a></li>
+                            <li><a href="#" className="hover:text-white">LinkedIn</a></li>
+                            <li><a href="#" className="hover:text-white">Contact Us</a></li>
+                        </ul>
                     </div>
                 </div>
-            </footer>
-        </>
+
+                {/* Footer Bottom */}
+                <div className="mt-12 pt-6 border-t border-neutral-800 text-xs text-gray-500 flex flex-col md:flex-row justify-between items-center">
+                    <p>&copy; 2025 ShopSite. All rights reserved.</p>
+                    <div className="space-x-5 mt-3 md:mt-0">
+                        <a href="#" className="hover:text-white">Privacy Policy</a>
+                        <a href="#" className="hover:text-white">Terms of Service</a>
+                        <a href="#" className="hover:text-white">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     );
 };
 
