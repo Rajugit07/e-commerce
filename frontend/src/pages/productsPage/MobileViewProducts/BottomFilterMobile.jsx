@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { BsSortAlphaDown } from "react-icons/bs";
-import { LuFilter } from "react-icons/lu";
+// import { BsSortAlphaDown } from "react-icons/bs";
+import { RiArrowLeftRightLine } from "react-icons/ri";
 import SortComponent from "./SortComponent";
 import FilterComponent from "./FilterComponents/FilterComponent";
 
@@ -12,9 +12,9 @@ const BottomFilterMobile = () => {
         setIsFilterOpen(false);
     };
 
-    const handleSortClick = () => {
-        setIsSortOpen(true);
-    };
+    // const handleSortClick = () => {
+    //     setIsSortOpen(true);
+    // };
 
     const handleFilterClick = () => {
         setIsFilterOpen(true);
@@ -22,9 +22,9 @@ const BottomFilterMobile = () => {
 
     return (
         <>
-            <div className="sm:hidden w-full h-16 fixed bottom-0 left-1/2 -translate-x-1/2 px-4 flex items-center justify-around border border-zinc-200 bg-white shadow">
+            <div className="sm:hidden px-5 py-4 bottom-3 flex items-center justify-around bg-black text-white shadow fixed right-4 rounded-md">
                 {/* Sort Button */}
-                <button
+                {/* <button
                     className="flex items-center justify-center gap-2 text-zinc-700 hover:text-blue-600 active:scale-95 transition-all cursor-pointer"
                     onClick={handleSortClick}
                 >
@@ -32,17 +32,15 @@ const BottomFilterMobile = () => {
                     <span className="text-xl font-medium mt-1 uppercase text-center">
                         Sort
                     </span>
-                </button>
+                </button> */}
 
                 {/* Filter Button */}
                 <button
-                    className="flex items-center justify-center gap-2 text-zinc-700 hover:text-blue-600 active:scale-95 transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-2 text-white text-sm font-medium uppercase"
                     onClick={handleFilterClick}
                 >
-                    <LuFilter className="text-xl" />
-                    <span className="text-xl font-medium mt-1 uppercase text-center">
-                        Filter
-                    </span>
+                    <RiArrowLeftRightLine className="text-base" />
+                    <span className="leading-none">Filter</span>
                 </button>
             </div>
 

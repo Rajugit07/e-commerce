@@ -59,11 +59,11 @@ export default function SizeDropDown() {
                         bg-gray-50 border border-gray-200 rounded-lg
                         text-sm font-medium text-gray-700
                         hover:bg-gray-100 hover:border-gray-300
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                        focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900
                         transition-all duration-200
                         ${
                             open
-                                ? "ring-2 ring-blue-500 border-blue-500 bg-blue-50"
+                                ? "ring-1 ring-zinc-500 border-zinc-500 bg-blue-50"
                                 : ""
                         }
                     `}

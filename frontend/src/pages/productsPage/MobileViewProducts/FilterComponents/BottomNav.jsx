@@ -2,14 +2,8 @@ import React from "react";
 
 const BottomNav = ({ onClose }) => {
     return (
-        <div className="w-full h-14 bg-white flex items-center justify-around border-t border-zinc-200 px-4">
-            <button className="uppercase text-xl semibold text-zinc-700 cursor-pointer">
-                Clear
-            </button>
-            <button
-                onClick={onClose}
-                className="uppercase text-xl semibold text-zinc-700 cursor-pointer"
-            >
+        <div className="w-full h-14 text-white bg-black flex items-center justify-around border-t px-4">
+            <button onClick={onClose} className="uppercase text-lg">
                 Apply
             </button>
         </div>

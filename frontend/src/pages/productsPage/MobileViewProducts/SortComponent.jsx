@@ -1,33 +1,57 @@
-const SortComponent = ({ onClose }) => {
-    return (
-        <div className="max-sm:w-full fixed inset-0 bg-opacity-40 z-50 flex items-end justify-center">
-            <div className="w-full max-w-md bg-white rounded-t-2xl p-4 shadow-lg">
-                <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-4"></div>
+import { useEffect } from "react";
 
-                <h2 className="text-center text-lg font-semibold mb-4">
+const sortOptions = [
+    { label: "A–Z (Ascending)", value: "az" },
+    { label: "Z–A (Descending)", value: "za" },
+    { label: "Price (Ascending)", value: "price_asc" },
+    { label: "Price (Descending)", value: "price_desc" },
+];
+
+const SortComponent = ({ onClose, onSortSelect }) => {
+    // Disable scrolling when modal is open
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, []);
+
+    return (
+        <div className="fixed inset-0 bg-black/40 z-50 flex justify-center items-end sm:items-center transition-opacity">
+            {/* BACKDROP for dismiss on click */}
+            <div
+                className="absolute inset-0"
+                onClick={onClose}
+                aria-label="Close Sort Modal"
+            />
+
+            <div className="relative w-full max-w-md bg-white rounded-t-xl sm:rounded-xl shadow-xl transform transition-all animate-fade-in-up p-6">
+                <div className="w-14 h-1.5 bg-gray-300 rounded-full mx-auto mb-6"></div>
+
+                <h2 className="text-xl font-semibold text-center text-gray-800 mb-6">
                     Sort Options
                 </h2>
 
                 <ul className="space-y-3">
-                    <li className="text-sm p-2 rounded hover:bg-zinc-100 cursor-pointer">
-                        🔼 A–Z (Ascending)
-                    </li>
-                    <li className="text-sm p-2 rounded hover:bg-zinc-100 cursor-pointer">
-                        🔽 Z–A (Descending)
-                    </li>
-                    <li className="text-sm p-2 rounded hover:bg-zinc-100 cursor-pointer">
-                        🕒 Newest First
-                    </li>
-                    <li className="text-sm p-2 rounded hover:bg-zinc-100 cursor-pointer">
-                        ⭐ Most Popular
-                    </li>
+                    {sortOptions.map((option) => (
+                        <li
+                            key={option.value}
+                            className="text-base p-3 rounded-lg border border-gray-200 hover:bg-gray-100 active:bg-gray-200 cursor-pointer transition"
+                            onClick={() => {
+                                if (onSortSelect) onSortSelect(option.value);
+                                onClose();
+                            }}
+                        >
+                            {option.label}
+                        </li>
+                    ))}
                 </ul>
 
                 <button
-                    className="mt-6 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointer"
+                    className="mt-8 w-full bg-gray-100 text-gray-800 font-medium py-3 rounded-lg hover:bg-gray-200 transition"
                     onClick={onClose}
                 >
-                    Close
+                    Cancel
                 </button>
             </div>
         </div>
