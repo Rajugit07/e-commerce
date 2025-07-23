@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import redisClient from "../utils/redisClient.js";
 
 // new product create
 export const createProduct = async (req, res) => {
@@ -193,6 +194,7 @@ export const productFilterByCategory = async (req, res) => {
         const limit = parseInt(req.query.limit) || 12; // default 12 products per page
         const skip = (page - 1) * limit;
 
+        let sort = '';
         let sortOption = {};
 
         if (req.query.sort) {
@@ -239,6 +241,18 @@ export const productFilterByCategory = async (req, res) => {
             filter.size = size;
         }
 
+        //Generate Cache key
+        const cacheKey = `product:${category}:${subCategory}:${productType}:${max}:${color}:${size}:${sort}:${page}:${limit}`;
+
+        //Check redis Cache
+        const cachedData = await redisClient.get(cacheKey);
+        if (cachedData) {
+            console.log("Serving from Redis Cache...");
+            return res.status(200).json(JSON.parse(cachedData));
+        }
+
+        // If not found in cache, query DB
+
         // Count total matching products for pagination metadata
         const totalProducts = await Product.countDocuments(filter);
 
@@ -249,14 +263,21 @@ export const productFilterByCategory = async (req, res) => {
             .skip(skip)
             .limit(limit);
 
-        res.status(200).json({
+        const response = {
             success: true,
             count: products.length,
             totalProducts,
             currentPage: page,
             totalPages: Math.ceil(totalProducts / limit),
             products,
+        };
+
+        // Cache this data - set it to auto-expire in 1 hour
+        await redisClient.set(cacheKey, JSON.stringify(response), {
+            EX: 3600, // expires in 1 hour
         });
+
+        res.status(200).json(response);
     } catch (error) {
         console.error("Error fetching products:", error.message);
         res.status(500).json({
