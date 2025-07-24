@@ -1,16 +1,27 @@
 import React from "react";
 import Navbar from "../../layouts/Navbar/Navbar";
 import { RxCross1 } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearWishlist } from "../../store/Reducers/productsReducer";
+import { setSelectedProduct } from "../../store/Reducers/productsReducer";
 
 const WishlistPage = () => {
     const item = useSelector((state) => state.productReducer.wishlistProduct);
+    const currentWishProduct = useSelector(
+        (state) => state.productReducer.currWishlist
+    );
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleRemoveWishlist = (removeWishlist) => {
         dispatch(clearWishlist(removeWishlist));
+    };
+
+    //add to cart
+    const handleShopNow = (item) => {
+        dispatch(setSelectedProduct(item));
+        navigate(`/checkout/cart/`);
     };
 
     return (
@@ -56,10 +67,11 @@ const WishlistPage = () => {
 
                             {/* Move to Bag Button */}
                             <button
+                                onClick={() => handleShopNow(currentWishProduct)}
                                 className="text-lg font-semibold py-3 uppercase transition-colors duration-200 border-t border-zinc-200 rounded-b-xl cursor-pointer"
                                 aria-label="Move to bag"
                             >
-                                <Link to="/checkout/cart">Move to Bag</Link>
+                                Move to Bag
                             </button>
                         </div>
                     ))

@@ -5,6 +5,7 @@ const initialState = {
     filteredProduct: [],
     selectedProduct: JSON.parse(localStorage.getItem("selectedProduct")) || [],
     wishlistProduct: JSON.parse(localStorage.getItem("wishlistProduct")) || [],
+    currWishlist:JSON.parse(localStorage.getItem("currWishlist")) || null,
     currProduct: JSON.parse(localStorage.getItem("currProduct")) || null,
     productDescription: JSON.parse(localStorage.getItem("productDescription")) || [],
     loading: false,
@@ -60,7 +61,7 @@ const productSlice = createSlice({
              state.currProduct = action.payload;
              localStorage.setItem("currProduct", JSON.stringify(action.payload));
         },
-        clearSelectedProduct: (state, action) => {
+        deleteSelectedProduct: (state, action) => {
             const existingProducts =
                 JSON.parse(localStorage.getItem("selectedProduct")) || [];
             const updatedProducts = existingProducts.filter(
@@ -89,6 +90,9 @@ const productSlice = createSlice({
             const isExist = existingWishlist.some(
                 (item) => item.productId === action.payload.productId
             );
+
+            state.currWishlist = action.payload;
+            localStorage.setItem("currProduct", JSON.stringify(action.payload));
 
             if (!isExist) {
                 existingWishlist.push(action.payload);
@@ -131,7 +135,7 @@ export const {
     getProductByCategory,
     clearFilteredProduct,
     setSelectedProduct,
-    clearSelectedProduct,
+    deleteSelectedProduct,
     addToWishlist,
     clearWishlist,
     openProductDescription,

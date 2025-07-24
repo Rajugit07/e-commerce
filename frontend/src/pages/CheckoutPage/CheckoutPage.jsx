@@ -17,7 +17,8 @@ const CheckoutPage = () => {
                     <Navbar />
                 </nav>
 
-                {selectedProduct ? (
+                {selectedProduct &&
+                Object.keys(selectedProduct).length !== 0 ? (
                     <div className="w-full h-full flex sm:justify-between px-6 gap-2 max-sm:flex-wrap">
                         {/* Address comp */}
                         <section className="sm:hidden w-full mt-4">
@@ -25,7 +26,7 @@ const CheckoutPage = () => {
                         </section>
 
                         {/* Product Cart */}
-                        <section className="sm:w-6/10 h-full  max-sm:w-full py-4">
+                        <section className="sm:w-6/10 h-full max-sm:w-full py-4">
                             <AddToCartProduct />
                         </section>
 
@@ -35,7 +36,9 @@ const CheckoutPage = () => {
                         </section>
                     </div>
                 ) : (
-                    <p className="text-center font-semibold text-xl text-zinc-500">No product selected</p>
+                    <p className="text-center font-semibold text-xl text-zinc-500">
+                        No product selected
+                    </p>
                 )}
             </div>
         </>

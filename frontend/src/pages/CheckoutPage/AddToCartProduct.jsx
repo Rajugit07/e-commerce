@@ -2,7 +2,7 @@ import React from "react";
 import SizeSelector from "../../components/SizeSelector";
 import QtySelector from "../../components/QtySelector";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelectedProduct } from "../../store/Reducers/productsReducer";
+import { deleteSelectedProduct } from "../../store/Reducers/productsReducer";
 
 const AddToCartProduct = () => {
     const selectedProducts = useSelector(
@@ -12,34 +12,34 @@ const AddToCartProduct = () => {
     const dispatch = useDispatch();
 
     const handleProductRemove = (productToRemove) => {
-        dispatch(clearSelectedProduct(productToRemove));
+        dispatch(deleteSelectedProduct(productToRemove));
     };
 
     return (
-        <div className="w-full bg-white px-2 relative rounded-md">
+        <div className="w-full bg-white ">
             {selectedProducts.length === 0 ? (
-                <p className="text-center text-zinc-500">
+                <p className="text-center text-zinc-500 text-sm sm:text-base">
                     No products in cart.
                 </p>
             ) : (
                 selectedProducts.map((product, index) => (
                     <div
                         key={index}
-                        className="sm:flex sm:items-start sm:gap-8 bg-white mb-4 border border-zinc-200 rounded-md p-2 shadow- flex gap-4"
+                        className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 bg-white mb-6 border border-zinc-300 rounded-lg p-4 relative"
                     >
-                        {/* Left: Image */}
-                        <div className="w-24 h-34 sm:w-52 sm:h-62 overflow-hidden rounded-xl relative">
+                        {/* Image */}
+                        <div className="w-full sm:w-40 h-40 sm:h-44 rounded-lg overflow-hidden relative">
                             <img
                                 src={product.image[0]?.url}
-                                alt="product"
+                                alt={product.description || "Product image"}
                                 className="absolute inset-0 w-full h-full object-cover object-center"
                             />
                         </div>
 
-                        {/* Right: Product Details */}
-                        <div className="flex-1 flex flex-col gap-3 max-sm:gap-2">
-                            {/* Product Title */}
-                            <p className="text-md font-semibold text-zinc-700 max-sm:text-[13px]">
+                        {/* Product Info */}
+                        <div className="flex-1 flex flex-col gap-3 text-sm">
+                            {/* Title */}
+                            <p className="text-zinc-800 font-semibold text-base sm:text-sm">
                                 {product.description}
                             </p>
 
@@ -49,31 +49,28 @@ const AddToCartProduct = () => {
                             {/* Quantity Selector */}
                             <QtySelector />
 
-                            {/* Price */}
-                            <div className="flex flex-col">
-                                <p className="font-semibold text-zinc-700">
+                            {/* Price Info */}
+                            <div className="mt-1">
+                                <p className="text-zinc-800 font-medium">
                                     Price:{" "}
-                                    <span className="text-[#278e2f]">
-                                        {product.price}
+                                    <span className="text-green-600 font-semibold">
+                                        ₹{product.price}
                                     </span>
                                 </p>
-                                <p className="font-semibold text-zinc-500 text-sm max-sm:text-[11px]">
-                                    MRP incl. of all taxes
+                                <p className="text-zinc-500 text-xs sm:text-sm">
+                                    Inclusive of all taxes
                                 </p>
                             </div>
+                        </div>
 
-                            {/* Action Buttons */}
-                            <div className="flex justify-start gap-2 max-sm:gap-1 mt-1">
-                                <button
-                                    onClick={() => handleProductRemove(product)}
-                                    className="px-3 py-1.5 border border-zinc-300 uppercase rounded-md text-xs max-sm:text-[10px] bg-zinc-900 text-white cursor-pointer"
-                                >
-                                    Remove
-                                </button>
-                                <button className="px-3 py-1.5 border border-zinc-300 uppercase rounded-md bg-[#ff3f6c] text-white text-xs max-sm:text-[10px] cursor-pointer">
-                                    Move to Wishlist
-                                </button>
-                            </div>
+                        {/* Action Buttons */}
+                        <div className="mt-3 absolute bottom-4 right-3">
+                            <button
+                                onClick={() => handleProductRemove(product)}
+                                className="px-3 py-1 rounded-md text-white bg-black text-lg sm:text-sm transition-colors duration-200 cursor-pointer font-bold hover:bg-zinc-700"
+                            >
+                                X
+                            </button>
                         </div>
                     </div>
                 ))
