@@ -5,19 +5,7 @@ const TotalPrice = () => {
     const selectedProducts = useSelector(
         (state) => state.productReducer.selectedProduct
     );
-
-    // Calculate total price, total discount, total coupon
-    const totalPrice = selectedProducts.reduce((acc, product) => {
-        const priceNum = Number(product.price) || 0;
-        const discount = Number(product.discount) || 0;
-        const coupon = Number(product.coupon) || 0;
-
-        const discountAmount = (priceNum * discount) / 100;
-        const total = priceNum - discountAmount - coupon;
-
-        return acc + total;
-    }, 0);
-
+    const totalPrice = useSelector((state) => state.productReducer.totalPrice);
     const roundedTotal = Math.round(totalPrice);
 
     return (

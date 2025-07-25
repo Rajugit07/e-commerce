@@ -4,10 +4,12 @@ const initialState = {
     product: [],
     filteredProduct: [],
     selectedProduct: JSON.parse(localStorage.getItem("selectedProduct")) || [],
+    totalPrice: JSON.parse(localStorage.getItem("totalPrice")) || 0,
     wishlistProduct: JSON.parse(localStorage.getItem("wishlistProduct")) || [],
-    currWishlist:JSON.parse(localStorage.getItem("currWishlist")) || null,
+    currWishlist: JSON.parse(localStorage.getItem("currWishlist")) || null,
     currProduct: JSON.parse(localStorage.getItem("currProduct")) || null,
-    productDescription: JSON.parse(localStorage.getItem("productDescription")) || [],
+    productDescription:
+        JSON.parse(localStorage.getItem("productDescription")) || [],
     loading: false,
 };
 
@@ -46,10 +48,37 @@ const productSlice = createSlice({
                     JSON.stringify(existingProducts)
                 );
                 state.selectedProduct = existingProducts;
+
+                // Calculate total price here
+                const totalPrice = existingProducts.reduce((acc, product) => {
+                    const priceNum = Number(product.price) || 0;
+                    const discount = Number(product.discount) || 0;
+                    const coupon = Number(product.coupon) || 0;
+
+                    const discountAmount = (priceNum * discount) / 100;
+                    const total = priceNum - discountAmount - coupon;
+
+                    return acc + total;
+                }, 0);
+
+                state.totalPrice = Math.round(totalPrice);
+                localStorage.setItem(
+                    "totalPrice",
+                    JSON.stringify(state.totalPrice)
+                );
             } else {
                 // If needed, update state with existing without changes
                 state.selectedProduct = existingProducts;
             }
+        },
+        clearSelectedProduct: (state) => {
+            state.selectedProduct = [];
+            state.currProduct = null;
+            state.totalPrice = 0;
+
+            localStorage.removeItem("selectedProduct");
+            localStorage.removeItem("currProduct");
+            localStorage.removeItem("totalPrice");
         },
         openProductDescription: (state, action) => {
             state.productDescription = action.payload;
@@ -57,9 +86,9 @@ const productSlice = createSlice({
                 "productDescription",
                 JSON.stringify(action.payload)
             );
-             // Always set current product
-             state.currProduct = action.payload;
-             localStorage.setItem("currProduct", JSON.stringify(action.payload));
+            // Always set current product
+            state.currProduct = action.payload;
+            localStorage.setItem("currProduct", JSON.stringify(action.payload));
         },
         deleteSelectedProduct: (state, action) => {
             const existingProducts =
@@ -72,6 +101,26 @@ const productSlice = createSlice({
                 JSON.stringify(updatedProducts)
             );
             state.selectedProduct = updatedProducts;
+
+            // Recalculate total price after deletion
+            const totalPrice = updatedProducts.reduce((acc, product) => {
+                const priceNum = Number(product.price) || 0;
+                const discount = Number(product.discount) || 0;
+                const coupon = Number(product.coupon) || 0;
+
+                const discountAmount = (priceNum * discount) / 100;
+                const total = priceNum - discountAmount - coupon;
+
+                return acc + total;
+            }, 0);
+
+            state.totalPrice = Math.round(totalPrice);
+
+            // Update localStorage for totalPrice
+            localStorage.setItem(
+                "totalPrice",
+                JSON.stringify(state.totalPrice)
+            );
         },
         addToWishlist: (state, action) => {
             let existingWishlist = JSON.parse(
@@ -139,4 +188,5 @@ export const {
     addToWishlist,
     clearWishlist,
     openProductDescription,
+    clearSelectedProduct,
 } = productSlice.actions;
