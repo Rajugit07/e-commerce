@@ -42,11 +42,10 @@ const productSlice = createSlice({
             localStorage.setItem("currProduct", JSON.stringify(action.payload));
 
             if (!isExist) {
-                existingProducts.push(action.payload);
-                localStorage.setItem(
-                    "selectedProduct",
-                    JSON.stringify(existingProducts)
-                );
+                const productWithQty = { ...action.payload, qty: 1 };
+                existingProducts.push(productWithQty);
+
+                localStorage.setItem("selectedProduct", JSON.stringify(existingProducts));
                 state.selectedProduct = existingProducts;
 
                 // Calculate total price here
@@ -56,19 +55,13 @@ const productSlice = createSlice({
                     const coupon = Number(product.coupon) || 0;
 
                     const discountAmount = (priceNum * discount) / 100;
-                    const total = priceNum - discountAmount - coupon;
+                    const total = (priceNum - discountAmount - coupon) * product.qty;
 
                     return acc + total;
                 }, 0);
 
                 state.totalPrice = Math.round(totalPrice);
-                localStorage.setItem(
-                    "totalPrice",
-                    JSON.stringify(state.totalPrice)
-                );
-            } else {
-                // If needed, update state with existing without changes
-                state.selectedProduct = existingProducts;
+                localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
             }
         },
         clearSelectedProduct: (state) => {
@@ -175,6 +168,72 @@ const productSlice = createSlice({
 
             state.wishlistProduct = updatedWishlist;
         },
+        incrementQty: (state, action) => {
+            const productId = action.payload;
+
+            const updatedProducts = state.selectedProduct.map((product) => {
+                const pid = product.productId || product._id || product.id; // ensure correct key
+                if (pid === productId) {
+                    return { ...product, qty: product.qty + 1 };
+                }
+                return product;
+            });
+
+            state.selectedProduct = updatedProducts;
+
+            // Recalculate total price
+            const totalPrice = updatedProducts.reduce((acc, product) => {
+                const priceNum = Number(product.price) || 0;
+                const discount = Number(product.discount) || 0;
+                const coupon = Number(product.coupon) || 0;
+
+                const discountAmount = (priceNum * discount) / 100;
+                const total = (priceNum - discountAmount - coupon) * product.qty;
+
+                return acc + total;
+            }, 0);
+
+            state.totalPrice = Math.round(totalPrice);
+
+            // Update localStorage AFTER all changes
+            localStorage.setItem("selectedProduct", JSON.stringify(updatedProducts));
+            localStorage.setItem("totalPrice", JSON.stringify(state.totalPrice));
+        },
+
+        decrementQty: (state, action) => {
+            const productId = action.payload;
+            const updatedProducts = state.selectedProduct.map((product) => {
+                if (product.productId === productId && product.qty > 1) {
+                    return { ...product, qty: product.qty - 1 };
+                }
+                return product;
+            });
+
+            state.selectedProduct = updatedProducts;
+            localStorage.setItem(
+                "selectedProduct",
+                JSON.stringify(updatedProducts)
+            );
+
+            // Recalculate total price
+            const totalPrice = updatedProducts.reduce((acc, product) => {
+                const priceNum = Number(product.price) || 0;
+                const discount = Number(product.discount) || 0;
+                const coupon = Number(product.coupon) || 0;
+
+                const discountAmount = (priceNum * discount) / 100;
+                const total =
+                    (priceNum - discountAmount - coupon) * product.qty;
+
+                return acc + total;
+            }, 0);
+
+            state.totalPrice = Math.round(totalPrice);
+            localStorage.setItem(
+                "totalPrice",
+                JSON.stringify(state.totalPrice)
+            );
+        },
     },
 });
 
@@ -189,4 +248,6 @@ export const {
     clearWishlist,
     openProductDescription,
     clearSelectedProduct,
+    incrementQty,
+    decrementQty,
 } = productSlice.actions;

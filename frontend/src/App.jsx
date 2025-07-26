@@ -27,7 +27,7 @@ function App() {
                 <Route path="/wishlist" element={<WishlistPage />} />
                 <Route path="/checkout/cart" element={<CheckoutPage />} />
                 <Route path="/paymentsuccess" element={<PaymentSuccess />} />
-                <Route path="/orders" element={<Order />} />
+                <Route path="/orders/:userId" element={<Order />} />
             </Routes>
         </div>
     );

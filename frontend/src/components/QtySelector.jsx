@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { incrementQty, decrementQty } from "../store/Reducers/productsReducer";
 
-const QtySelector = () => {
-    const [qty, setQty] = useState(1);
-    const increment = () => setQty((prev) => prev + 1);
-    const decrement = () => setQty((prev) => (prev > 1 ? prev - 1 : 1));
+const QtySelector = ({ productId }) => {
+
+    const dispatch = useDispatch();
+    const product = useSelector((state) =>
+        state.productReducer.selectedProduct.find(
+            (p) => p.productId === productId
+        )
+    );
+    const qty = product?.qty || 1;
+
+    const handleIncrement = () => dispatch(incrementQty(productId));
+    const handleDecrement = () => dispatch(decrementQty(productId));
 
     return (
         <div className="w-full max-w-[7rem] max-sm:mt-2">
@@ -12,7 +21,7 @@ const QtySelector = () => {
             </label>
             <div className="flex items-center border border-zinc-200 rounded overflow-hidden">
                 <button
-                    onClick={decrement}
+                    onClick={handleDecrement}
                     className="w-8 py-1 text-base font-semibold text-gray-600 hover:bg-zinc-100 active:scale-95 transition-all duration-100 max-sm:w-7 max-sm:text-sm"
                 >
                     -
@@ -21,7 +30,7 @@ const QtySelector = () => {
                     {qty}
                 </div>
                 <button
-                    onClick={increment}
+                    onClick={handleIncrement}
                     className="w-8 py-1 text-base font-semibold text-gray-600 hover:bg-zinc-100 active:scale-95 transition-all duration-100 max-sm:w-7 max-sm:text-sm"
                 >
                     +

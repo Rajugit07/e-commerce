@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { clearSelectedProduct  } from "../../store/Reducers/productsReducer";
-import { useDispatch } from "react-redux";
+import { clearSelectedProduct } from "../../store/Reducers/productsReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const PaymentSuccess = () => {
     const location = useLocation();
@@ -10,6 +10,7 @@ const PaymentSuccess = () => {
     const reference = queryParams.get("reference");
     const [showContent, setShowContent] = useState(false);
     const dispatch = useDispatch();
+    const userId = useSelector((state) => state.authReducer.user?._id);
 
     useEffect(() => {
         // Trigger animation after component mounts
@@ -29,7 +30,7 @@ const PaymentSuccess = () => {
     };
 
     const handleViewOrder = () => {
-        navigate("/orders");
+        navigate(`/orders/${userId}`);
     };
 
     const copyReference = () => {

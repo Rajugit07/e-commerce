@@ -47,7 +47,7 @@ const AddToCartProduct = () => {
                             <SizeSelector />
 
                             {/* Quantity Selector */}
-                            <QtySelector />
+                            <QtySelector productId={product.productId || product._id} />
 
                             {/* Price Info */}
                             <div className="mt-1">
