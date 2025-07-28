@@ -1,37 +1,36 @@
 import React from "react";
-import banner from "../../assets/images/banner.jpg";
-import { Link } from "react-router-dom";
 
 const LandingPage = () => {
     return (
-        <div className="w-full h-screen px-5 mb-4 max-sm:px-2 flex items-center justify-center bg-zinc-50 ">
-            <div className="relative w-full h-[90vh] max-w-8xl bg-white border border-zinc-100 shadow rounded-2xl overflow-hidden">
-                {/* Hero Image */}
-                <img
-                    src={banner}
-                    alt="Banner showcasing minimalist fashion"
-                    className="absolute top-0 left-0 w-full h-full object-cover"
-                />
-
-                {/* Overlay for better readability */}
-                <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
-
-                {/* Content */}
-                <div className="relative z-10 flex flex-col justify-center items-center text-center p-6 h-full">
-                    <h1 className="text-5xl max-sm:text-3xl font-bold text-white drop-shadow-md">
-                        Less Noise. More Style.
-                    </h1>
-                    <p className="text-2xl max-sm:text-lg font-medium text-white mt-3 drop-shadow-sm">
-                        Evaluate Essentials.
-                    </p>
-
-                    <Link to="/" className="mt-6">
-                        <button className="text-sm md:text-base bg-gradient-to-r from-zinc-800 to-zinc-600 px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 hover:shadow-lg active:scale-100 transition-transform duration-200 ease-in-out cursor-pointer">
-                            Explore More
-                        </button>
-                    </Link>
+        <div className="min-h-screen bg-white">
+            {/* Hero Section */}
+            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                {/* Main Content */}
+                <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+                    <div className="mb-8">
+                        <h1 className="text-7xl md:text-8xl lg:text-9xl font-thin text-black leading-none tracking-tight">
+                            LESS
+                        </h1>
+                        <h1 className="text-7xl md:text-8xl lg:text-9xl font-thin text-black leading-none tracking-tight -mt-4">
+                            NOISE
+                        </h1>
+                        <div className="flex items-center justify-center mt-6 mb-6">
+                            <div className="h-px bg-black w-20"></div>
+                            <span className="mx-4 text-sm font-medium text-gray-600">
+                                MORE STYLE
+                            </span>
+                            <div className="h-px bg-black w-20"></div>
+                        </div>
+                        <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
+                            Curated essentials for the modern minimalist.
+                            <br />
+                            <span className="font-medium text-black">
+                                Evaluate. Elevate. Essential.
+                            </span>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };
