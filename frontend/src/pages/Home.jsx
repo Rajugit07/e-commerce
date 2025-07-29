@@ -40,7 +40,7 @@ const Home = () => {
 
     return (
         <>
-            <div>
+            <div className="">
                 <Navbar />
                 <LandingPage />
                 <h1 className="px-5 py-6 text-4xl font-semibold uppercase max-sm:text-3xl">

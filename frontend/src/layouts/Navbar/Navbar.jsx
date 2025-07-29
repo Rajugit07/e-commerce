@@ -19,6 +19,7 @@ import MobileNavbar from "./MobileNavbar";
 import ProfileDropDown from "./ProfileDropDown";
 import { Toaster } from "react-hot-toast";
 import { searchProduct } from "../../api/productApi/searchProduct";
+import { MdPerson } from "react-icons/md";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -85,125 +86,127 @@ const Navbar = () => {
     }, [query]);
 
     return (
-        <div className="w-full h-auto sticky top-0 z-[9999] bg-white">
-            <nav className="flex items-center justify-between sm:p-4.5  border-b border-zinc-200 font-gucciSansPro">
+        <div className="w-full h-auto sticky top-0 z-[9999]">
+            <section className="flex items-center justify-between sm:p-3 font-gucciSansPro">
                 {/* Full Menu (Desktop) */}
-                <div>
-                    <div className=" bg-white p-2 rounded-md shadow max-sm:hidden ">
-                        <Link to="/">logo</Link>
+                <nav className="bg-[#ffffff] flex items-center w-full justify-between p-2 rounded-xl py-1 border border-zinc-200">
+                    <div>
+                        <div className=" p-2 max-sm:hidden ">
+                            <Link to="/">logo</Link>
+                        </div>
                     </div>
-                </div>
-                <div className="bg-white border border-zinc-100 px-6 py-1 rounded-md md:flex shadow max-sm:hidden ">
-                    <ul className="flex gap-6 text-sm  text-zinc-800">
-                        <NavItem
-                            label="Men"
-                            path="/men"
-                            subItems={dropDownData.men}
-                            itm={dropDownSubDataMan}
-                        />
-                        <NavItem
-                            label="Women"
-                            path="/women"
-                            subItems={dropDownData.woman}
-                            itm={dropDownSubDataWomen}
-                        />
-                        <NavItem
-                            label="Kids"
-                            path="/kids"
-                            subItems={dropDownData.kids}
-                            itm={dropDownSubDataKids}
-                        />
-                        <NavItem
-                            label="Beauty"
-                            path="/home"
-                            subItems={dropDownData.beauty}
-                            itm={dropDownSubDataBeauty}
-                        />
-                    </ul>
-                </div>
+                    <div className=" px-6 py-1 md:flex  max-sm:hidden ">
+                        <ul className="flex gap-6 text-sm  text-zinc-800">
+                            <NavItem
+                                label="Men"
+                                path="/men"
+                                subItems={dropDownData.men}
+                                itm={dropDownSubDataMan}
+                            />
+                            <NavItem
+                                label="Women"
+                                path="/women"
+                                subItems={dropDownData.woman}
+                                itm={dropDownSubDataWomen}
+                            />
+                            <NavItem
+                                label="Kids"
+                                path="/kids"
+                                subItems={dropDownData.kids}
+                                itm={dropDownSubDataKids}
+                            />
+                            <NavItem
+                                label="Beauty"
+                                path="/home"
+                                subItems={dropDownData.beauty}
+                                itm={dropDownSubDataBeauty}
+                            />
+                        </ul>
+                    </div>
 
-                {/* Searching  */}
-                <div className=" relative rounded-md shadow max-sm:hidden px-6 py-1 bg-white border border-zinc-100 ">
-                    <IoIosSearch className="absolute text-lg text-zinc-700 top-3 left-3" />
-                    <input
-                        type="text"
-                        value={query}
-                        onChange={handleSearch}
-                        placeholder="Search..."
-                        className="outline-none rounded-md p-1 pl-3 "
-                    />
-                </div>
+                    {/* Searching  */}
+                    <div className=" relative  max-sm:hidden px-6 py-1">
+                        <IoIosSearch className="absolute text-lg text-zinc-700 top-3 left-3" />
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={handleSearch}
+                            placeholder="Search..."
+                            className="outline-none p-1 pl-3 "
+                        />
+                    </div>
 
-                {results.length > 0 && (
-                    <div
-                        className="
+                    {results.length > 0 && (
+                        <div
+                            className="
                                 fixed sm:absolute sm:left-[53vw] sm:top-17 sm:w-62 sm:h-75
                                 left-0 top-30 w-full h-[300px]
                                 bg-white overflow-y-scroll border border-zinc-200 shadow-xl hide-scrollbar rounded-sm z-[999]
     "
-                    >
-                        {results.map((item, index) => (
-                            <div
-                                key={index}
-                                className="hover:bg-gray-200 cursor-pointer transition-hover duration-200"
-                                style={{
-                                    padding: "10px",
-                                    borderBottom:
-                                        index !== results.length - 1
-                                            ? "1px solid #eee"
-                                            : "",
-                                }}
-                            >
-                                {loading && (
-                                    <div className="text-center">
-                                        Loading...
-                                    </div>
-                                )}
-                                <Link
-                                    className="text-sm"
-                                    to={`/${item.category}/${item.subCategory}/${item.productType}`}
-                                    onClick={() => {
-                                        setQuery(""); // clear input field
-                                        setResults([]); // clear search results
+                        >
+                            {results.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="hover:bg-gray-200 cursor-pointer transition-hover duration-200"
+                                    style={{
+                                        padding: "10px",
+                                        borderBottom:
+                                            index !== results.length - 1
+                                                ? "1px solid #eee"
+                                                : "",
                                     }}
                                 >
-                                    {item.productType} - {item.category}
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {/* user profile and login */}
-                <div className="bg-white border border-zinc-100 px-6 py-1 rounded-md md:flex  shadow max-sm:hidden ">
-                    <ul className="flex gap-6 text-sm font-normal text-zinc-800">
-                        <li
-                            className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2"
-                            onClick={toggleDropdown}
-                        >
-                            <Link to="/">Profile</Link>
-                            <span>
-                                <FaAngleDown
-                                    className={`transition-transform duration-300 ${
-                                        isOpen2 ? "rotate-180" : ""
-                                    }`}
-                                />
-                            </span>
-                            {isOpen2 && (
-                                <div className="absolute top-20 mt-2 right-19">
-                                    <ProfileDropDown />
+                                    {loading && (
+                                        <div className="text-center">
+                                            Loading...
+                                        </div>
+                                    )}
+                                    <Link
+                                        className="text-sm"
+                                        to={`/${item.category}/${item.subCategory}/${item.productType}`}
+                                        onClick={() => {
+                                            setQuery(""); // clear input field
+                                            setResults([]); // clear search results
+                                        }}
+                                    >
+                                        {item.productType} - {item.category}
+                                    </Link>
                                 </div>
-                            )}
-                        </li>
-                        <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
-                            <Link to="/checkout/cart">Bag</Link>
-                        </li>
-                        <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
-                            <Link to="/wishlist">Wishlist</Link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* user profile and login */}
+                    <div className="px-6 py-1  md:flex  max-sm:hidden ">
+                        <ul className="flex gap-6 text-sm font-normal text-zinc-800">
+                            <li
+                                className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2"
+                                onClick={toggleDropdown}
+                            >
+                                <Link to="/">Profile</Link>
+                                <span>
+                                    <FaAngleDown
+                                        className={`transition-transform duration-300 ${
+                                            isOpen2 ? "rotate-180" : ""
+                                        }`}
+                                    />
+                                </span>
+                                {isOpen2 && (
+                                    <div className="absolute top-20 mt-2 right-19">
+                                        <ProfileDropDown />
+                                    </div>
+                                )}
+                            </li>
+                            <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
+                                <Link to="/checkout/cart">Bag</Link>
+                            </li>
+                            <li className="hover:bg-[#f5f3eb] p-2 rounded-md flex items-center gap-2">
+                                <Link to="/wishlist">Wishlist</Link>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </section>
 
             {/* Mobile Top Bar */}
             <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 flex items-center justify-between sm:hidden sticky top-0 z-50">
