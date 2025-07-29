@@ -1,16 +1,21 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BuyButton = () => {
+    const navigate = useNavigate();
     const totalPrice = useSelector((state) => state.productReducer.totalPrice);
     const userInfo = useSelector(
         (state) => state.productReducer.selectedProduct
     );
     const authUserId = useSelector((state) => state.authReducer.user?._id);
-    
+
     const handlePayment = async () => {
         try {
+            if (!authUserId) {
+                navigate("/login");
+                return;
+            }
             // Get Razorpay key
             const {
                 data: { key },
@@ -57,7 +62,6 @@ const BuyButton = () => {
             };
             const razor = new window.Razorpay(options);
             razor.open();
-
         } catch (error) {
             console.log("Payment failed", error);
         }

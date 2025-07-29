@@ -30,7 +30,7 @@ const AddToCartProduct = () => {
                         {/* Image */}
                         <div className="w-full sm:w-40 h-40 sm:h-44 rounded-lg overflow-hidden relative">
                             <img
-                                src={product.image[0]?.url}
+                                src={product.image[0]?.url || product.image || "https://via.placeholder.com/150"}
                                 alt={product.description || "Product image"}
                                 className="absolute inset-0 w-full h-full object-cover object-center"
                             />

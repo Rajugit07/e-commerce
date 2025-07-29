@@ -4,6 +4,7 @@ import AddToCartProduct from "./AddToCartProduct";
 import PriceDetails from "./PriceDetails";
 import AddressComp from "./AddressComp";
 import { useSelector } from "react-redux";
+import Footer from "../../layouts/Footer";
 
 const CheckoutPage = () => {
     const selectedProduct = useSelector(
@@ -40,6 +41,7 @@ const CheckoutPage = () => {
                         No product selected
                     </p>
                 )}
+                <Footer/>
             </div>
         </>
     );

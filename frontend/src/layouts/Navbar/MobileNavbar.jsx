@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa6";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     dropDownData,
     dropDownSubDataMan,
@@ -40,8 +41,47 @@ const MobileNavbar = () => {
         }
     };
 
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0, height: 0 },
+        visible: {
+            opacity: 1,
+            height: "auto",
+            transition: {
+                duration: 0.3,
+                ease: "easeInOut",
+                staggerChildren: 0.05
+            }
+        },
+        exit: {
+            opacity: 0,
+            height: 0,
+            transition: {
+                duration: 0.2,
+                ease: "easeInOut"
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, x: -10 },
+        visible: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                duration: 0.2,
+                ease: "easeOut"
+            }
+        }
+    };
+
     return (
-        <div className="bg-white h-auto w-[70%] absolute top-2 left-1 border border-zinc-300 p-4 z-20 rounded-xl shadow-lg sm:hidden">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="bg-white h-auto w-[70%] absolute top-2 left-1 border border-zinc-300 p-4 z-20 rounded-xl shadow-lg sm:hidden"
+        >
             <span className="text-lg uppercase text-zinc-700 font-semibold block mb-4">
                 Menu
             </span>
@@ -55,58 +95,76 @@ const MobileNavbar = () => {
                             onClick={() => handleCategoryClick(category)}
                         >
                             <span className="text-md uppercase text-zinc-900">{category}</span>
-                            <FaAngleDown
-                                className={`transition-transform ${
-                                    openCategory === category ? "rotate-180" : ""
-                                }`}
-                            />
+                            <motion.div
+                                animate={{ rotate: openCategory === category ? 180 : 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                            >
+                                <FaAngleDown />
+                            </motion.div>
                         </div>
 
                         {/* Subcategories */}
-                        {openCategory === category && (
-                            <ul className="ml-4 mt-2 space-y-2 text-[14px]">
-                                {items.map((item, i) => (
-                                    <li key={i}>
-                                        {/* Subcategory header with toggle */}
-                                        <div
-                                            className="flex justify-between items-center cursor-pointer font-medium"
-                                            onClick={() => handleSubCategoryClick(item)}
-                                        >
-                                            <span>{item}</span>
-                                            <FaAngleDown
-                                                className={`transition-transform text-xs ${
-                                                    openSubCategory === item ? "rotate-180" : ""
-                                                }`}
-                                            />
-                                        </div>
+                        <AnimatePresence>
+                            {openCategory === category && (
+                                <motion.ul
+                                    variants={containerVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                    className="ml-4 mt-2 space-y-2 text-[14px] overflow-hidden"
+                                >
+                                    {items.map((item, i) => (
+                                        <motion.li key={i} variants={itemVariants}>
+                                            {/* Subcategory header with toggle */}
+                                            <div
+                                                className="flex justify-between items-center cursor-pointer font-medium"
+                                                onClick={() => handleSubCategoryClick(item)}
+                                            >
+                                                <span>{item}</span>
+                                                <motion.div
+                                                    animate={{ rotate: openSubCategory === item ? 180 : 0 }}
+                                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                >
+                                                    <FaAngleDown className="text-xs" />
+                                                </motion.div>
+                                            </div>
 
-                                        {/* Sub-subcategories (actual products) */}
-                                        {openSubCategory === item && (
-                                            <ul className="ml-4 mt-1 space-y-1 text-[13px]">
-                                                {getSubCategoryData(category, item).map((subItem, j) => (
-                                                    <li key={j}>
-                                                        <Link
-                                                            to={`/${category}/${item
-                                                                .toLowerCase()
-                                                                .replace(/\s+/g, "-")}/${subItem
-                                                                .toLowerCase()
-                                                                .replace(/\s+/g, "-")}`}
-                                                            className="block text-zinc-600 hover:text-zinc-900 py-1"
-                                                        >
-                                                            {subItem}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
+                                            {/* Sub-subcategories (actual products) */}
+                                            <AnimatePresence>
+                                                {openSubCategory === item && (
+                                                    <motion.ul
+                                                        variants={containerVariants}
+                                                        initial="hidden"
+                                                        animate="visible"
+                                                        exit="exit"
+                                                        className="ml-4 mt-1 space-y-1 text-[13px] overflow-hidden"
+                                                    >
+                                                        {getSubCategoryData(category, item).map((subItem, j) => (
+                                                            <motion.li key={j} variants={itemVariants}>
+                                                                <Link
+                                                                    to={`/${category}/${item
+                                                                        .toLowerCase()
+                                                                        .replace(/\s+/g, "-")}/${subItem
+                                                                        .toLowerCase()
+                                                                        .replace(/\s+/g, "-")}`}
+                                                                    className="block text-zinc-600 hover:text-zinc-900 py-1"
+                                                                >
+                                                                    {subItem}
+                                                                </Link>
+                                                            </motion.li>
+                                                        ))}
+                                                    </motion.ul>
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.li>
+                                    ))}
+                                </motion.ul>
+                            )}
+                        </AnimatePresence>
                     </li>
                 ))}
             </ul>
-        </div>
+        </motion.div>
     );
 };
 

@@ -6,6 +6,7 @@ import { asyncLogoutUser } from "../../store/Actions/LogoutAction";
 
 const ProfileDropDown = () => {
     const { user } = useSelector((state) => state.authReducer);
+    const userId = useSelector((state) => state.authReducer.user?._id);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -37,10 +38,10 @@ const ProfileDropDown = () => {
                             {user.role === "user" && (
                                 <>
                                     <ul className="text-sm sm:text-base flex flex-col">
-                                        <Link to="/order" className="">
+                                        <Link to={`/orders/${userId}`} className="">
                                             Order
                                         </Link>
-                                        <Link to="/order" className="my-2">
+                                        <Link to="/wishlist" className="my-2">
                                             Wishlist
                                         </Link>
                                     </ul>

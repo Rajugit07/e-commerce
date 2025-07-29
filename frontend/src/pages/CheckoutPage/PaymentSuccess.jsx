@@ -39,7 +39,7 @@ const PaymentSuccess = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-700 flex items-center justify-center p-5 font-sans">
+        <div className="min-h-screen flex items-center justify-center p-5 font-sans">
             <div className="bg-white rounded-3xl p-12 max-w-lg w-full text-center shadow-2xl relative overflow-hidden">
                 {/* Top colored border */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-600"></div>
@@ -186,27 +186,6 @@ const PaymentSuccess = () => {
                             </svg>
                             Continue Shopping
                         </button>
-                    </div>
-
-                    {/* Additional Info */}
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-800">
-                        <p className="flex items-center justify-center gap-2 text-sm">
-                            <svg
-                                className="w-4 h-4 flex-shrink-0"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                            A confirmation email has been sent to your
-                            registered email address.
-                        </p>
                     </div>
                 </div>
             </div>

@@ -209,7 +209,7 @@ const Navbar = () => {
             </section>
 
             {/* Mobile Top Bar */}
-            <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 flex items-center justify-between sm:hidden sticky top-0 z-50">
+            <div className="bg-white border-b border-b-zinc-300 w-full px-2 py-4 -mt-4 flex items-center justify-between sm:hidden sticky top-0 z-50">
                 {/* Left: Hamburger & Logo */}
                 <div className="flex items-center gap-3">
                     <button onClick={() => setIsOpen(!isOpen)}>

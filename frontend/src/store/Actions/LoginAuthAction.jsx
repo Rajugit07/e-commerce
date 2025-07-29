@@ -15,10 +15,16 @@ export const asyncLoginUser = (credentials, navigate) => async (dispatch) => {
             } else {
                 navigate("/");
             }
+            return { success: true };
         } else {
             toast.error(data.message || "Login failed");
+            return { success: false, error: data.message || "Login failed" };
         }
     } catch (error) {
-        console.log(error);
+        toast.error(error.message || "Something went wrong");
+        return {
+            success: false,
+            error: error.message || "Something went wrong",
+        };
     }
 };
