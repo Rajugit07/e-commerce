@@ -16,7 +16,7 @@ export default function ImageSlide({
         <article
             className="
         flex flex-col rounded-md border border-zinc-200 bg-white
-        transition-transform duration-200 hover:-translate-y-1 cursor-pointer max-w-[280px] min-w-[220px] flex-[1_1_200px]
+        transition-transform duration-200 hover:-translate-y-1 cursor-pointer flex-1  min-w-[250px] max-w-[300px]  sm:min-w-[220px] sm:max-w-[260px] md:min-w-[210px] md:max-w-[240px]
       "
             onClick={() => handleShopNow(item)}
         >

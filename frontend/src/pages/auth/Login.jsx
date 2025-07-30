@@ -101,7 +101,9 @@ const Login = () => {
                             Sign up
                         </Link>
                     </p>
+                    <Link to="/" className="w-full flex items-center justify-center mt-4 hover:font-bold transition-all duration-300">Home</Link>
                 </section>
+
             </main>
             <Toast />
         </>

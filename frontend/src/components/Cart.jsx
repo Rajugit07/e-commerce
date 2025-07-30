@@ -27,7 +27,7 @@ const Cart = ({ items }) => {
     return (
         <>
             <section className="w-full max-w-screen-xl mx-auto overflow-x-hidden">
-                <div className="flex flex-wrap gap-4 p-4 justify-center items-center">
+                <div className="flex flex-wrap gap-4 justify-center items-stretch">
                     {items.map((item, idx) => (
                         <ImageSlide
                             key={item.productId || idx}

@@ -3,6 +3,7 @@ import ProductCart from "../../components/ProductCart";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetFilteredProducts } from "../../store/Actions/ProductAction/productAction";
+import NotFound from "../NotFound";
 
 const Products = () => {
     const { category, subCategory, productType } = useParams();
@@ -70,9 +71,7 @@ const Products = () => {
                     productType={productType}
                 />
             ) : (
-                <p className="text-center mt-10 text-red-500">
-                    Product not found
-                </p>
+                <NotFound/>
             )}
         </>
     );

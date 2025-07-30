@@ -70,7 +70,7 @@ export default function CategoryScroll({
                 {subcategories.map((sub, idx) => (
                     <div
                         key={idx}
-                        className="relative bg-white h-84 w-72 max-sm:w-60 flex-shrink-0 rounded-lg border border-zinc-200 overflow-hidden shadow-sm hover:scale-105 transition-scale duration-300"
+                        className="relative bg-white h-105 w-72 max-sm:w-60 flex-shrink-0 rounded-lg border border-zinc-200 overflow-hidden shadow-sm hover:scale-105 transition-scale duration-300"
                     >
                         {/* image */}
                         {getCategoryImage &&
