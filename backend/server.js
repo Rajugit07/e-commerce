@@ -19,10 +19,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","https://e-commerce-chi-two-50.vercel.app/"],
     credentials: true,
 };
 app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
 export const instance = new Razorpay({
     key_id: process.env.KEY_ID,

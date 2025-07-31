@@ -19,7 +19,7 @@ const BuyButton = () => {
             // Get Razorpay key
             const {
                 data: { key },
-            } = await axios.get("http://localhost:8000/api/v1/getkey", {
+            } = await axios.get("https://e-commerce-9kun.onrender.com", {
                 withCredentials: true,
             });
 
@@ -27,7 +27,7 @@ const BuyButton = () => {
             const {
                 data: { order },
             } = await axios.post(
-                "http://localhost:8000/api/v1/checkout",
+                "https://e-commerce-9kun.onrender.com",
                 {
                     amount: totalPrice * 100,
                     user: authUserId,
