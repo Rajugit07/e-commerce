@@ -42,6 +42,11 @@ app.get("/api/v1/getkey", (req, res) =>
     res.status(200).json({ key: process.env.KEY_ID })
   );
 
+// test route
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
+
 app.listen(PORT, () => {
     connectDB();
     console.log(`Server running on PORT ${PORT}`);
