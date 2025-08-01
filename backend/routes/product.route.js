@@ -8,7 +8,7 @@ router.route("/products/filterByPrice").get(filterProductsByPrice);
 router.route("/products/filterBySize").get(filterProductBySize);
 router.route("/products/filterByColor").get(filterProductByColor);
 router.route("/products/getAllProduct").get(getAllProducts);
-router.route("/products").get(productFilterByCategory);
+router.route("/").get(productFilterByCategory);
 router.route("/search").get(searchProduct);
 
 
