@@ -1,6 +1,6 @@
 import { instance } from "../server.js";
 import crypto from "crypto";
-import  Payment  from "../models/payment.model.js";
+import Payment from "../models/payment.model.js";
 import Order from "../models/order.model.js";
 
 //order create
@@ -38,14 +38,10 @@ export const paymentverification = async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
         req.body;
 
-    console.log(req.body);
-
     const generated_signature = crypto
         .createHmac("sha256", process.env.KEY_SECRET)
         .update(razorpay_order_id + "|" + razorpay_payment_id)
         .digest("hex");
-
-    console.log("received:", razorpay_signature);
 
     const isAuthenticate = generated_signature === razorpay_signature;
 
@@ -66,7 +62,7 @@ export const paymentverification = async (req, res) => {
             }
         );
         res.redirect(
-            `https://e-commerce-chi-two-50.vercel.app/paymentsuccess?reference=${razorpay_payment_id}`
+            `https://e-commerce-9kun.onrender.com/payment/paymentsuccess?reference=${razorpay_payment_id}`
         );
     } else {
         return res.status(400).json({
@@ -75,3 +71,6 @@ export const paymentverification = async (req, res) => {
         });
     }
 };
+
+// https://e-commerce-chi-two-50.vercel.app
+// https://e-commerce-9kun.onrender.com

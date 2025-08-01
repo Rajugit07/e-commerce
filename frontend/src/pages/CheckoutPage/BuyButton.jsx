@@ -53,7 +53,7 @@ const BuyButton = () => {
                 image: "https://example.com/your_logo.png",
                 order_id: order.id,
                 callback_url:
-                    "https://e-commerce-9kun.onrender.com/api/v1/paymentverification",
+                    "https://e-commerce-chi-two-50.vercel.app/api/v1/payment/paymentverification",
                 prefill: {
                     name: "Customer Name",
                     email: "customer@example.com",
