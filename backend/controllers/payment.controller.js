@@ -62,7 +62,7 @@ export const paymentverification = async (req, res) => {
             }
         );
         res.redirect(
-            `https://e-commerce-9kun.onrender.com/payment/paymentsuccess?reference=${razorpay_payment_id}`
+            `https://e-commerce-chi-two-50.vercel.app/payment/paymentsuccess?reference=${razorpay_payment_id}`
         );
     } else {
         return res.status(400).json({
@@ -71,6 +71,3 @@ export const paymentverification = async (req, res) => {
         });
     }
 };
-
-// https://e-commerce-chi-two-50.vercel.app
-// https://e-commerce-9kun.onrender.com
