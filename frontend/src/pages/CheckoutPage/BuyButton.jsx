@@ -30,7 +30,7 @@ const BuyButton = () => {
             const {
                 data: { order },
             } = await axios.post(
-                "https://e-commerce-9kun.onrender.com/api/v1/checkout",
+                "https://e-commerce-9kun.onrender.com/api/v1/payment/checkout",
                 {
                     amount: totalPrice * 100,
                     user: authUserId,

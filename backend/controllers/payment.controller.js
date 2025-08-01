@@ -66,7 +66,7 @@ export const paymentverification = async (req, res) => {
             }
         );
         res.redirect(
-            `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
+            `https://e-commerce-chi-two-50.vercel.app/paymentsuccess?reference=${razorpay_payment_id}`
         );
     } else {
         return res.status(400).json({
