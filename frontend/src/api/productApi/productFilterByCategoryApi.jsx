@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://e-commerce-9kun.onrender.com";
+const API_BASE_URL = "https://e-commerce-9kun.onrender.com/api/v1";
 
 export const productFilterByCategoryApi = async ({
     category,
@@ -9,7 +9,7 @@ export const productFilterByCategoryApi = async ({
 }) => {
     try {
         const response = await axios.get(
-            `${API_BASE_URL}?category=${category}&subCategory=${subCategory}&productType=${productType}`,
+            `${API_BASE_URL}/products?category=${category}&subCategory=${subCategory}&productType=${productType}`,
             {
                 headers: {
                     "Content-Type": "Application/json",

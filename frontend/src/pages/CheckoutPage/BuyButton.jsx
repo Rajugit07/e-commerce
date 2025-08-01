@@ -19,15 +19,18 @@ const BuyButton = () => {
             // Get Razorpay key
             const {
                 data: { key },
-            } = await axios.get("https://e-commerce-9kun.onrender.com", {
-                withCredentials: true,
-            });
+            } = await axios.get(
+                "https://e-commerce-9kun.onrender.com/api/v1/getkey",
+                {
+                    withCredentials: true,
+                }
+            );
 
             // Create order
             const {
                 data: { order },
             } = await axios.post(
-                "https://e-commerce-9kun.onrender.com",
+                "https://e-commerce-9kun.onrender.com/api/v1/checkout",
                 {
                     amount: totalPrice * 100,
                     user: authUserId,
@@ -35,6 +38,9 @@ const BuyButton = () => {
                 },
                 {
                     withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 }
             );
 
@@ -47,7 +53,7 @@ const BuyButton = () => {
                 image: "https://example.com/your_logo.png",
                 order_id: order.id,
                 callback_url:
-                    "http://localhost:8000/api/v1/paymentverification",
+                    "https://e-commerce-9kun.onrender.com/api/v1/paymentverification",
                 prefill: {
                     name: "Customer Name",
                     email: "customer@example.com",

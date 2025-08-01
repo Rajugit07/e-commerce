@@ -1,7 +1,7 @@
 // src/api/orders.js
 import axios from "axios";
 
-const API_BASE_URL = "https://e-commerce-9kun.onrender.com";
+const API_BASE_URL = "https://e-commerce-9kun.onrender.com/api/v1";
 
 export const fetchUserOrders = async (userId) => {
     try {

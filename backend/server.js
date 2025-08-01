@@ -23,7 +23,6 @@ const corsOptions = {
     credentials: true,
 };
 app.use(cors(corsOptions));
-// app.options('*', cors(corsOptions));
 
 export const instance = new Razorpay({
     key_id: process.env.KEY_ID,
